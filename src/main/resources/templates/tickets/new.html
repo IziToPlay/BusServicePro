@@ -1,0 +1,102 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head"></th:block>
+<body>
+
+	<th:block th:include="fragments/navbar"></th:block>
+	
+	<div class="container">
+
+		<div class="card" style="max-width: 100%;">
+		
+
+			<div class="container">
+					<div class="card-header text-white bg-primary">RESERVAR TICKET</div>
+					<div class="card-body">
+						<form th:action="@{/tickets/searchClient}" method="get">
+						
+							<div class="form-row align-items-center">
+							
+								<div class="col-auto">
+									<Label class="sr-only" for="inputDni">Datos a completar</Label>
+									<input
+										id="inputDni" type="text" class="form-control form-control-lg"
+										name="dni"
+										placeholder="DNI a buscar">
+										
+								</div>
+									<div class="col-auto">
+									<button type="submit" class="btn btn-primary">Buscar</button>
+								
+								</div>
+							</div>
+						</form>
+					</div>
+				
+				
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>DNI</th>
+							<th>Celular</th>
+							<th>Fecha de Nacimiento</th>
+							<th>Email</th>
+							<th>Seleccionar</th>
+					
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="client:${clients}">
+
+							<td th:text="${client.id}">cruzSolar</td>
+							<td th:text="${client.name}">cruzSolar</td>
+							<td th:text="${client.lastName}">cruzSolar</td>
+							<td th:text="${client.dni}">cruzSolar</td>
+							<td th:text="${client.cellPhone}">cruzSolar</td>
+							<td th:text="${client.birthday}">cruzSolar</td>
+							<td th:text="${client.email}">cruzSolar</td>
+							
+							<td><a th:href="@{'/tickets/connect/' + ${client.id}}"
+								class="btn btn-primary">Cliente</a></td>
+							
+						</tr>
+					</tbody>
+				</table>
+				
+						<form th:object="${ticket}" th:action="@{/tickets/save}"
+					th:method="post">
+					<div class="form-group">
+						<input type="hidden" class="form-control" th:field="*{id}" />
+					</div>
+					
+					<div class="form-group">
+						<label for="emissionDate">Fecha de Emision</label> <input type="text"
+							class="form-control" id="emissionDate" aria-describedby="emissionDate"
+							th:field="*{emissionDate}" placeholder="Ingrese fecha de emision" />
+					</div>
+					
+						<div class="form-group">
+						<label for="seat">Asiento</label> <select id="seat"
+							class="form-control" th:field="*{seat}" multiple="multiple">
+							<option th:each="seat : ${seats}"
+								th:text="${seat.number}" th:value="${seat.id}"></option>
+						</select>
+					</div>	
+					
+					
+						
+					<a th:href="@{/trips/list}" class="btn btn-primary">Regresar</a>
+					<button type="submit" class="btn btn-success">Reservar</button>
+				</form>
+	
+			</div>
+		</div>
+
+	</div>
+	<th:block th:include="fragments/scripts"></th:block>
+
+</body>
+</html>

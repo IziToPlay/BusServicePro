@@ -1,0 +1,70 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head"></th:block>
+<body>
+
+	<th:block th:include="fragments/navbar"></th:block>
+	<div class="container">
+
+		<div class="card" style="max-width: 100%;">
+			<div class="card-header">Mis reservas</div>
+			<div class="card-body">
+
+
+                <form th:action="@{/tickets/searchTicket}" method="get">
+
+					<div class="form-row align-items-center">
+
+						<div class="col-auto">
+							<Label class="sr-only" for="inputFechaEmision">Datos a completar</Label> <input
+								id="inputFechaEmision" type="text" class="form-control form-control-lg"
+								name="fechaemision" 
+								placeholder="Busca fecha de emision">
+
+						</div>
+						<div class="col-auto">
+							<button type="submit" class="btn btn-primary">Buscar</button>
+
+						</div>
+					</div>
+				</form>
+				
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Fecha de Emision</th>
+							<th>Nombre del pasajero</th>
+							<th>Apellido del pasajero</th>
+							<th>Dni</th>
+							<th>Origen</th>
+							<th>Destino</th>
+							<th>Asiento</th>
+							<th>Editar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="ticket : ${tickets}">
+
+							<td th:text="${ticket.id}">cruzSolar</td>
+							<td th:text="${ticket.emissionDate}">cruzSolar</td>
+							<td th:text="${ticket.client.name}">cruzSolar</td>
+							<td th:text="${ticket.client.lastName}">cruzSolar</td>
+							<td th:text="${ticket.client.dni}">cruzSolar</td>
+							<td th:text="${ticket.trip.dptDeparture.name}">cruzSolar</td>
+							<td th:text="${ticket.trip.dptArrival.name}">cruzSolar</td>
+							<td th:text="${ticket.seat.number}">cruzSolar</td>
+						
+							<td><a th:href="@{'/tickets/edit/' + ${ticket.id} }"
+								class="btn btn-primary">Editar</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+	<th:block th:include="fragments/scripts"></th:block>
+
+</body>
+</html>
