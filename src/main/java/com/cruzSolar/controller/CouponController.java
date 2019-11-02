@@ -42,7 +42,11 @@ public class CouponController {
 	
 	public  List<Coupon> searchCoupons(long id, Model model) {
 		try {
-			if(id != 0) {
+			
+			
+			String filtroID = Long.toString(id);
+			
+			if(!filtroID.isEmpty()) {
 				model.addAttribute("info", "Búsqueda realizada correctamente");
 				coupons=couponService.fetchCouponById(id);
 				if(!coupons.isEmpty()) {
@@ -55,7 +59,8 @@ public class CouponController {
 			}
 			else {
 				model.addAttribute("info", "Debe completar el campo de búsqueda.");
-				model.addAttribute("coupons",couponService.getAll());
+				model.addAttribute("coupons",couponService.getAll()); 
+				
 			}
 		}   
 	    catch(Exception e) 
