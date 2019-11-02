@@ -171,7 +171,7 @@ public class TicketController {
 		if(counter%3==0) {
 			model.addAttribute("success","Cupón activado por compra de 3 tickets");
 			Random rand = new Random();
-		   
+		
 		}
 		ticketService.delete(id);
 		model.addAttribute("success", "Ticket comprado correctamente");
