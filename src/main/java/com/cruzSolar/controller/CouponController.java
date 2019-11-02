@@ -59,7 +59,8 @@ public class CouponController {
 			}
 			else {
 				model.addAttribute("info", "Debe completar el campo de búsqueda.");
-				model.addAttribute("coupons",couponService.getAll());
+				model.addAttribute("coupons",couponService.getAll()); 
+				
 			}
 		}   
 	    catch(Exception e) 
