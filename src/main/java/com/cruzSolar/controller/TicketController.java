@@ -61,7 +61,7 @@ public class TicketController {
     public String showAllTickets(Model model) throws Exception {
 		tripp=new Trip();
         model.addAttribute("tickets", ticketService.getAll());
-        double amountTicket=calculareAmountTickets(model);
+        calculareAmountTickets(model);
         tripp.setPrice(amountTicket);
 		model.addAttribute("tripp", tripp);
         return "tickets/list";
@@ -167,7 +167,9 @@ public class TicketController {
 	
 	@PostMapping("/delete/{id}")
 	public String deleteTicket(@PathVariable("id") long id, Ticket ticket,Model model) throws Exception {
+		amountTicket-=ticketService.getOneById(id).getTrip().getPrice();
 		ticketService.delete(id);
+		
 		model.addAttribute("success", "Ticket eliminado correctamente");
 		return "redirect:/trips/list";
 	}
@@ -175,6 +177,7 @@ public class TicketController {
 	@PostMapping("/buy/{id}")
 	public String buyTicket(@PathVariable("id") long id, Ticket ticket,Model model) throws Exception {
 		counter++;
+		amountTicket-=ticketService.getOneById(id).getTrip().getPrice();
 		ticketService.delete(id);
 		if(counter%3==0) {
 			Random rand = new Random();
@@ -194,7 +197,7 @@ public class TicketController {
 		//no valido para el viaje seleccionado entonces saldra mensaje de error
 	}
 	
-	public double calculareAmountTickets(Model model) {
+	public void calculareAmountTickets(Model model) {
 		try {
 			for(long i=0;i < ticketService.getAll().size();i++) {
 				amountTicket+=ticketService.getOneById(i).getTrip().getPrice();
@@ -202,7 +205,6 @@ public class TicketController {
 		} catch (Exception e) {
 			model.addAttribute("error", e.getStackTrace());
 		}
-			return amountTicket;
 	}
 
 	public TicketService getTicketService() {
