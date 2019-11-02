@@ -19,7 +19,7 @@
 							<Label class="sr-only" for="inputFechaEmision">Datos a completar</Label> <input
 								id="inputFechaEmision" type="text" class="form-control form-control-lg"
 								name="fechaemision" 
-								placeholder="Busca fecha de emision">
+								placeholder="Buscar fecha de emision">
 
 						</div>
 						<div class="col-auto">
@@ -63,6 +63,11 @@
 			</div>
 		</div>
 
+						<div class="form-group">
+						<label for="amountTicket">Monto Total:</label> <input type="text"
+							class="form-control" id="amountTicket" aria-describedby="amountTicket"
+							th:field="${amountTicket}"   />
+					</div>
 	</div>
 	<th:block th:include="fragments/scripts"></th:block>
 

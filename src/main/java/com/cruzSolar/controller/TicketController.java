@@ -44,11 +44,14 @@ public class TicketController {
 	
 	private Client client;
 	private Trip trip;
-	List<Ticket> tickets ;
+	List<Ticket> tickets;
+	private double amountTicket;
 	
 	@GetMapping("/list")
     public String showAllTickets(Model model) throws Exception {
         model.addAttribute("tickets", ticketService.getAll());
+        double amountTicket=calculareAmountTickets(model);
+		model.addAttribute("amountTicket", amountTicket);
         return "tickets/list";
     }
 	
@@ -114,6 +117,7 @@ public class TicketController {
 		model.addAttribute("ticket", new Ticket());
 		List<Ticket>tickets= searchTickets(fechaemision, model);
 		model.addAttribute("tickets", tickets);
+		
 		//List<Seat> seats = seatService.findAllSeatsAvailables(trip.getId());
 		//model.addAttribute("seats",seats);
 		return "tickets/list";
@@ -150,15 +154,17 @@ public class TicketController {
     }
 	
 	@PostMapping("/delete/{id}")
-	public void deleteTicket(@PathVariable("id") long id, Ticket ticket,Model model) throws Exception {
+	public String deleteTicket(@PathVariable("id") long id, Ticket ticket,Model model) throws Exception {
 		ticketService.delete(id);
 		model.addAttribute("success", "Ticket eliminado correctamente");
+		return "redirect:/trips/list";
 	}
 	
 	@PostMapping("/buy/{id}")
-	public void buyTicket(@PathVariable("id") long id, Ticket ticket,Model model) throws Exception {
+	public String buyTicket(@PathVariable("id") long id, Ticket ticket,Model model) throws Exception {
 		ticketService.delete(id);
 		model.addAttribute("success", "Ticket comprado correctamente");
+		return "redirect:/trips/list";
 	}
 	
 	@PostMapping("/selectTicketToDiscount/{id}")
@@ -167,6 +173,16 @@ public class TicketController {
 		model.addAttribute("success", "Ticket seleccionado para el descuento correctamente");
 	}
 	
+	public double calculareAmountTickets(Model model) {
+		try {
+			for(long i=0;i < ticketService.getAll().size();i++) {
+				amountTicket+=ticketService.getOneById(i).getTrip().getPrice();
+			}
+		} catch (Exception e) {
+			model.addAttribute("error", e.getStackTrace());
+		}
+			return amountTicket;
+	}
 
 	public TicketService getTicketService() {
 		return ticketService;
