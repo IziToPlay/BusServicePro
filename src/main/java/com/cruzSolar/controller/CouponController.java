@@ -42,7 +42,11 @@ public class CouponController {
 	
 	public  List<Coupon> searchCoupons(long id, Model model) {
 		try {
-			if(id != 0) {
+			
+			
+			String filtroID = Long.toString(id);
+			
+			if(!filtroID.isEmpty()) {
 				model.addAttribute("info", "Búsqueda realizada correctamente");
 				coupons=couponService.fetchCouponById(id);
 				if(!coupons.isEmpty()) {
