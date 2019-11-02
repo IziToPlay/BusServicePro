@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.cruzSolar.model.entity.Coupon;
+import com.cruzSolar.model.entity.Trip;
 import com.cruzSolar.model.repository.CouponRepository;
 
 import com.cruzSolar.service.CouponService;
@@ -27,6 +28,11 @@ public class CouponServiceImpl implements CouponService {
 		//return coupons
 		return couponRepository.findAll();
 		
+	}
+	
+	@Override
+	public List<Coupon> fetchCouponById(long id) throws Exception {
+		return couponRepository.fetchCouponById(id);
 	}
 
 

@@ -13,6 +13,7 @@ import com.cruzSolar.model.entity.Client;
 import com.cruzSolar.model.entity.Coupon;
 import com.cruzSolar.model.entity.Seat;
 import com.cruzSolar.model.entity.Ticket;
+import com.cruzSolar.model.entity.Trip;
 import com.cruzSolar.service.CouponService;
 
 @Controller
@@ -23,7 +24,7 @@ public class CouponController {
 
 	@Autowired
 	private CouponService couponService;
-
+    private Coupon coupon;
 	List<Coupon> coupons;
 	
 	@GetMapping("/list")
@@ -33,12 +34,37 @@ public class CouponController {
     }
 
 	@GetMapping("/searchCoupon")
-	public String searchCoupon(@RequestParam("code") long codigo, Model model) throws Exception{
-		model.addAttribute("coupon", new Coupon());
-		//List<Coupon> coupons=searchCoupon(codigo, model);
-		model.addAttribute("coupons", coupons);
+	public String searchCoupon(@RequestParam("id") long id, Model model) throws Exception
+	{
+		model.addAttribute("coupons",searchCoupons(id, model));
 		return "coupons/list";
 	}
+	
+	public  List<Coupon> searchCoupons(long id, Model model) {
+		try {
+			if(id != 0) {
+				model.addAttribute("info", "Búsqueda realizada correctamente");
+				coupons=couponService.fetchCouponById(id);
+				if(!coupons.isEmpty()) {
+					model.addAttribute("coupons", coupons);
+				}
+				else {
+						model.addAttribute("info", "No se han encontrado coincidencias");
+						model.addAttribute("coupons",couponService.getAll());
+				}
+			}
+			else {
+				model.addAttribute("info", "Debe completar el campo de búsqueda.");
+				model.addAttribute("coupons",couponService.getAll());
+			}
+		}   
+	    catch(Exception e) 
+		{
+			model.addAttribute("Error Coupon:", e.getMessage());
+		}
+		return coupons;
+	}
+	
 	
 
 	
