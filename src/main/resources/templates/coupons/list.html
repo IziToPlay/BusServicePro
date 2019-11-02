@@ -1,0 +1,52 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head"></th:block>
+<body>
+
+	<th:block th:include="fragments/navbar"></th:block>
+	<div class="container">
+
+		<div class="card" style="max-width: 100%;">
+			<div class="card-header">Cupones</div>
+			<div class="card-body">
+
+
+                
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Codigo</th>
+							<th>Descripcion</th>
+							<th>Origen</th>
+							<th>Destino</th>
+							<th>Vence</th>
+							<th>Usar cupo</th>
+						</tr>
+					</thead>
+					<tbody|>
+						<tr th:each="coupon : ${coupons}">
+
+							<td th:text="${coupon.id}">cruzSolar</td>
+							<td th:text="${coupon.description}">cruzSolar</td>
+							
+							<td th:text="${coupon.trip.dptDeparture.name}">cruzSolar</td>
+							<td th:text="${coupon.trip.dptArrival.name}">cruzSolar</td>
+							<td th:text="${coupon.expireDate}">cruzSolar</td>
+							
+							
+							<td><a 
+								class="btn btn-primary">Usar Cupo</a></td>
+							
+					
+						
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+	<th:block th:include="fragments/scripts"></th:block>
+
+</body>
+</html>
