@@ -148,6 +148,25 @@ public class TicketController {
         model.addAttribute("success","Ticket actualizado correctamente");
         return "redirect:/tickets/list";    
     }
+	
+	@PostMapping("/delete/{id}")
+	public void deleteTicket(@PathVariable("id") long id, Ticket ticket,Model model) throws Exception {
+		ticketService.delete(id);
+		model.addAttribute("success", "Ticket eliminado correctamente");
+	}
+	
+	@PostMapping("/buy/{id}")
+	public void buyTicket(@PathVariable("id") long id, Ticket ticket,Model model) throws Exception {
+		ticketService.delete(id);
+		model.addAttribute("success", "Ticket comprado correctamente");
+	}
+	
+	@PostMapping("/selectTicketToDiscount/{id}")
+	public void selectTicketToDiscount(@PathVariable("id") long id, Model model) throws Exception {
+		Ticket ticket=ticketService.getOneById(id);
+		model.addAttribute("success", "Ticket seleccionado para el descuento correctamente");
+	}
+	
 
 	public TicketService getTicketService() {
 		return ticketService;
