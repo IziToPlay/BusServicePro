@@ -44,14 +44,17 @@ public class TicketController {
 	
 	private Client client;
 	private Trip trip;
+	private Trip tripp;
 	List<Ticket> tickets;
 	private double amountTicket;
 	
 	@GetMapping("/list")
     public String showAllTickets(Model model) throws Exception {
+		tripp=new Trip();
         model.addAttribute("tickets", ticketService.getAll());
         double amountTicket=calculareAmountTickets(model);
-		model.addAttribute("amountTicket", amountTicket);
+        tripp.setPrice(amountTicket);
+		model.addAttribute("tripp", tripp);
         return "tickets/list";
     }
 	
@@ -89,11 +92,11 @@ public class TicketController {
 		return "tickets/new";
 	}
 	
-	public List<Ticket> searchTickets(String fechaemision, Model model){
+	public List<Ticket> searchTickets(String emissionDate, Model model){
 		
 		try {	
-			if(!fechaemision.isEmpty()) {
-				tickets=ticketService.fetchTicketByFechaEmission(fechaemision);
+			if(!emissionDate.isEmpty()) {
+				tickets=ticketService.fetchTicketByFechaEmission(emissionDate);
 				
 			if(!tickets.isEmpty()) {
 				model.addAttribute("tickets", tickets);
@@ -112,10 +115,10 @@ public class TicketController {
 	}
 	
 	@GetMapping("/searchTicket")
-	public String searchTicket(@RequestParam("fechaemision") String fechaemision, Model model) throws Exception{
+	public String searchTicket(@RequestParam("emissionDate") String emissionDate, Model model) throws Exception{
 		
 		model.addAttribute("ticket", new Ticket());
-		List<Ticket>tickets= searchTickets(fechaemision, model);
+		List<Ticket>tickets= searchTickets(emissionDate, model);
 		model.addAttribute("tickets", tickets);
 		
 		//List<Seat> seats = seatService.findAllSeatsAvailables(trip.getId());
