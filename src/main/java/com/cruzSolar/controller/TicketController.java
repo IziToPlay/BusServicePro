@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cruzSolar.model.entity.Client;
+import com.cruzSolar.model.entity.Coupon;
 import com.cruzSolar.model.entity.Seat;
 import com.cruzSolar.model.entity.Ticket;
 import com.cruzSolar.model.entity.Trip;
 import com.cruzSolar.service.ClientService;
+import com.cruzSolar.service.CouponService;
 import com.cruzSolar.service.SeatService;
 import com.cruzSolar.service.TicketService;
 import com.cruzSolar.service.TripService;
@@ -41,7 +43,12 @@ public class TicketController {
 	private TripService tripService;
 	
 	@Autowired
+	private CouponService couponService;
+	
+	@Autowired
 	private ClientController clientController;
+	
+	
 	
 	private Client client;
 	private Trip trip;
@@ -168,20 +175,23 @@ public class TicketController {
 	@PostMapping("/buy/{id}")
 	public String buyTicket(@PathVariable("id") long id, Ticket ticket,Model model) throws Exception {
 		counter++;
-		if(counter%3==0) {
-			model.addAttribute("success","Cupón activado por compra de 3 tickets");
-			Random rand = new Random();
-		
-		}
 		ticketService.delete(id);
+		if(counter%3==0) {
+			Random rand = new Random();
+		    Coupon randomCoupon = couponService.getAll().get(rand.nextInt(couponService.getAll().size()));
+		    model.addAttribute("info", "Cupón activado por compra de 3 tickets." + "Cupon:"+randomCoupon.getId()+"de código especial"+randomCoupon.getSpecialCode());    
+		}else {
 		model.addAttribute("success", "Ticket comprado correctamente");
-		return "redirect:/trips/list";
+		}
+		return "redirect:tickets/list";
 	}
 	
 	@PostMapping("/selectTicketToDiscount/{id}")
 	public void selectTicketToDiscount(@PathVariable("id") long id, Model model) throws Exception {
 		Ticket ticket=ticketService.getOneById(id);
 		model.addAttribute("success", "Ticket seleccionado para el descuento correctamente");
+		//Enviar a formulario "Insert Coupon" para el viaje seleccionado, el cupon debe ser acorde al viaje, si se ingresa un cupon
+		//no valido para el viaje seleccionado entonces saldra mensaje de error
 	}
 	
 	public double calculareAmountTickets(Model model) {
