@@ -10,7 +10,23 @@
 			<div class="card-header">Cupones</div>
 			<div class="card-body">
 
+               <form th:action="@{/coupons/searchCoupon}" method="get">
 
+					<div class="form-row align-items-center">
+
+						<div class="col-auto">
+							<Label class="sr-only" for="inputCode">Buscar código</Label> <input
+								id="inputCod" type="text" class="form-control form-control-lg"
+								name="Code" 
+								placeholder="Buscar por codigo">
+
+						</div>
+						<div class="col-auto">
+							<button type="submit" class="btn btn-primary">Buscar</button>
+
+						</div>
+					</div>
+				</form>
                 
 				<table class="table table-striped">
 					<thead>
@@ -19,7 +35,7 @@
 							<th>Descripcion</th>
 							<th>Origen</th>
 							<th>Destino</th>
-							<th>Vence</th>
+							<th>Fecha de Vencimiento</th>
 							<th>Usar cupo</th>
 						</tr>
 					</thead>
@@ -34,8 +50,6 @@
 							<td th:text="${coupon.expireDate}">cruzSolar</td>
 							
 							
-							<td><a 
-								class="btn btn-primary">Usar Cupo</a></td>
 							
 					
 						

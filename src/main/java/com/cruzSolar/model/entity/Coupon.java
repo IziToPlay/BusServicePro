@@ -29,8 +29,11 @@ public class Coupon {
 	@JoinColumn(name = "trip_id",nullable=false)
 	private Trip trip;
 	
+	@Column(name = "special_code")
+	private String specialCode;
+	
 	@Column(name = "discount")
-	double discount;
+	private double discount;
 	
 	@Lob
 	@Type(type = "org.hibernate.type.TextType")
@@ -90,6 +93,16 @@ public class Coupon {
 
 	public void setExpireDate(Date expireDate) {
 		this.expireDate = expireDate;
+	}
+
+
+
+	public String getSpecialCode() {
+		return specialCode;
+	}
+
+	public void setSpecialCode(String specialCode) {
+		this.specialCode = specialCode;
 	}
 
 }
