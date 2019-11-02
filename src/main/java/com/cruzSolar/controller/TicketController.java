@@ -1,6 +1,7 @@
 package com.cruzSolar.controller;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.Access;
 
@@ -47,6 +48,7 @@ public class TicketController {
 	private Trip tripp;
 	List<Ticket> tickets;
 	private double amountTicket;
+	private int counter=0;
 	
 	@GetMapping("/list")
     public String showAllTickets(Model model) throws Exception {
@@ -165,6 +167,12 @@ public class TicketController {
 	
 	@PostMapping("/buy/{id}")
 	public String buyTicket(@PathVariable("id") long id, Ticket ticket,Model model) throws Exception {
+		counter++;
+		if(counter%3==0) {
+			model.addAttribute("success","Cupón activado por compra de 3 tickets");
+			Random rand = new Random();
+		   
+		}
 		ticketService.delete(id);
 		model.addAttribute("success", "Ticket comprado correctamente");
 		return "redirect:/trips/list";
