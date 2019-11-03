@@ -64,6 +64,8 @@ public class TicketController {
         return "tickets/list";
     }
 	
+	
+	
 	@GetMapping("/listBoughtTickets")
     public String showAllBoughtTickets(Model model) throws Exception {
         model.addAttribute("tickets", ticketService.getAllBoughtTickets());
@@ -157,6 +159,19 @@ public class TicketController {
 			return "tickets/new";
 		}
     }
+	
+	@GetMapping("/payTicket/{id}")
+	public String payTicket(@PathVariable("id") long id, Model model) throws Exception{
+		
+		Ticket ticket= ticketService.getOneById(id);
+        List<Client> clients = clientService.getAll();
+		model.addAttribute("clients",clients);
+		List<Seat> seats = seatService.findAllSeatsAvailables(ticket.getTrip().getBus().getId());
+		model.addAttribute("seats",seats);
+		model.addAttribute("ticket",ticket);
+		return "tickets/payTicket";
+	}
+	
 	
 	@GetMapping("/edit/{id}")
     public String editTicketForm(@PathVariable("id") long id, Model model) throws Exception {

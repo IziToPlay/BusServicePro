@@ -61,7 +61,7 @@
 							<td th:text="${ticket.seat.number}">cruzSolar</td>
 							<td th:text="${ticket.price}">cruzSolar</td>
 							
-							<td><a th:href="@{'/tickets/buy/' + ${ticket.id} }"
+							<td><a th:href="@{'/tickets/payTicket/'+ ${ticket.id}}"
 								class="btn btn-primary">Ticket</a></td>
 								
 							<td><a th:href="@{'/tickets/selectTicketToDiscount/' + ${ticket.id} }"
