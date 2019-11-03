@@ -60,7 +60,7 @@ public class TicketController {
 	@GetMapping("/list")
     public String showAllTickets(Model model) throws Exception {
 		tripp=new Trip();
-        model.addAttribute("tickets", ticketService.getAll());
+        model.addAttribute("tickets", ticketService.getAllReservedTickets());
         calculareAmountTickets(model);
         tripp.setPrice(amountTicket);
 		model.addAttribute("tripp", tripp);
@@ -70,6 +70,7 @@ public class TicketController {
 	@GetMapping("/new/{id}")
 	 public String newTicketForm(@PathVariable("id") long id, Model model) throws Exception{
 		model.addAttribute("ticket", new Ticket());
+		client=new Client();
 		List<Client> clients = clientService.getAll();
 		model.addAttribute("clients",clients);
 		trip=tripService.getOneById(id);
@@ -111,11 +112,11 @@ public class TicketController {
 				model.addAttribute("tickets", tickets);
 			}else {
 				model.addAttribute("info", "No existen coincidencias");
-				model.addAttribute("tickets",ticketService.getAll());
+				model.addAttribute("tickets",ticketService.getAllReservedTickets());
 				}
 			}else {
 				model.addAttribute("info", "Debe completar el campo de búsqueda.");
-				model.addAttribute("tickets",ticketService.getAll());
+				model.addAttribute("tickets",ticketService.getAllReservedTickets());
 			}
 		}catch(Exception e) {
 			model.addAttribute("Error Ticket:", e.getMessage());
@@ -139,10 +140,19 @@ public class TicketController {
 	@PostMapping("/save")
     public String saveNewTicket(Ticket ticket, Model model) throws Exception {
 		
-		ticket.setTrip(trip);
-		ticket.setClient(client);
-        long id = ticketService.create(ticket);
-        return "redirect:/trips/list";
+		if(client.getId()!=null) {
+			ticket.setCondition(false);
+			ticket.setPrice(trip.getPrice());
+			ticket.setTrip(trip);
+			ticket.setClient(client);
+			long id = ticketService.create(ticket);
+			return "redirect:/trips/list";
+		}else {
+			model.addAttribute("error", "Cliente no seleccionado");
+			List<Client> clients = clientService.getAll();
+			model.addAttribute("clients", clients);
+			return "tickets/new";
+		}
     }
 	
 	@GetMapping("/edit/{id}")
@@ -166,19 +176,18 @@ public class TicketController {
     }
 	
 	@PostMapping("/delete/{id}")
-	public String deleteTicket(@PathVariable("id") long id, Ticket ticket,Model model) throws Exception {
-		amountTicket-=ticketService.getOneById(id).getTrip().getPrice();
+	public String deleteTicket(@PathVariable("id") long id,Model model) throws Exception {
+		amountTicket-=ticketService.getOneById(id).getPrice();
 		ticketService.delete(id);
-		
 		model.addAttribute("success", "Ticket eliminado correctamente");
-		return "redirect:/trips/list";
+		return "redirect:/tickets/list";
 	}
 	
 	@PostMapping("/buy/{id}")
-	public String buyTicket(@PathVariable("id") long id, Ticket ticket,Model model) throws Exception {
+	public String buyTicket(@PathVariable("id") long id, Model model) throws Exception {
 		counter++;
-		amountTicket-=ticketService.getOneById(id).getTrip().getPrice();
-		ticketService.delete(id);
+		ticketService.getOneById(id).setCondition(true);
+		amountTicket-=ticketService.getOneById(id).getPrice();
 		if(counter%3==0) {
 			Random rand = new Random();
 		    Coupon randomCoupon = couponService.getAll().get(rand.nextInt(couponService.getAll().size()));
@@ -186,7 +195,7 @@ public class TicketController {
 		}else {
 		model.addAttribute("success", "Ticket comprado correctamente");
 		}
-		return "redirect:tickets/list";
+		return "redirect:/tickets/list";
 	}
 	
 	@PostMapping("/selectTicketToDiscount/{id}")
@@ -199,8 +208,8 @@ public class TicketController {
 	
 	public void calculareAmountTickets(Model model) {
 		try {
-			for(long i=0;i < ticketService.getAll().size();i++) {
-				amountTicket+=ticketService.getOneById(i).getTrip().getPrice();
+			for(long i=0;i < ticketService.getAllReservedTickets().size();i++) {
+				amountTicket+=ticketService.getOneById(i).getPrice();
 			}
 		} catch (Exception e) {
 			model.addAttribute("error", e.getStackTrace());

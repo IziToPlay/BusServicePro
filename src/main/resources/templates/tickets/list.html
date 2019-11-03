@@ -40,6 +40,7 @@
 							<th>Origen</th>
 							<th>Destino</th>
 							<th>Asiento</th>
+							<th>Precio</th>
 							<th>Comprar</th>
 							<th>Aplicar</th>
 							<th>Editar</th>
@@ -58,7 +59,8 @@
 							<td th:text="${ticket.trip.dptDeparture.name}">cruzSolar</td>
 							<td th:text="${ticket.trip.dptArrival.name}">cruzSolar</td>
 							<td th:text="${ticket.seat.number}">cruzSolar</td>
-						
+							<td th:text="${ticket.price}">cruzSolar</td>
+							
 							<td><a th:href="@{'/tickets/buy/' + ${ticket.id} }"
 								class="btn btn-primary">Ticket</a></td>
 								

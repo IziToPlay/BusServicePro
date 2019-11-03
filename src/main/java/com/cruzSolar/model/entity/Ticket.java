@@ -37,6 +37,12 @@ public class Ticket {
 	@ManyToOne
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
+	
+	@Column(name = "condition", nullable=false)
+	private boolean condition;
+	
+	@Column(name = "price", nullable=false)
+	private double price;
 
 	public Long getId() {
 		return id;
@@ -84,5 +90,21 @@ public class Ticket {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+
+	public boolean isCondition() {
+		return condition;
+	}
+
+	public void setCondition(boolean condition) {
+		this.condition = condition;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 }

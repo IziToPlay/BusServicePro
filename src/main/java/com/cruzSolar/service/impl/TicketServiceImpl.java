@@ -42,7 +42,6 @@ public class TicketServiceImpl implements TicketService{
 	@Override
 	public void delete(Long id) throws Exception {
 		ticketRepository.deleteById(id);
-		
 	}
 	
 	@Transactional(readOnly=true)
@@ -50,6 +49,8 @@ public class TicketServiceImpl implements TicketService{
 	public List<Ticket> getAll() {
 		return ticketRepository.findAll();
 	}
+	
+	
 
 	@Transactional(readOnly=true)
 	@Override
@@ -61,6 +62,16 @@ public class TicketServiceImpl implements TicketService{
 	public List<Ticket> fetchTicketByFechaEmission(String emision) {
 	
 		return ticketRepository.fetchTicketByFechaEmission(emision);
+	}
+
+	@Override
+	public List<Ticket> getAllReservedTickets() {
+		return ticketRepository.getAllReservedTickets();
+	}
+
+	@Override
+	public List<Ticket> getAllBoughtTickets() {
+		return ticketRepository.getAllBoughtTickets();
 	}
 	
 

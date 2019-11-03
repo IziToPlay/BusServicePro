@@ -15,4 +15,9 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>{
 	@Query("select t from Ticket t where t.emissionDate like ?1")
 	List <Ticket> fetchTicketByFechaEmission(String emision);
 	
+	@Query("select t from Ticket t where t.condition = TRUE")
+	List <Ticket> getAllBoughtTickets();
+	
+	@Query("select t from Ticket t where t.condition = FALSE")
+	List <Ticket> getAllReservedTickets();
 }
