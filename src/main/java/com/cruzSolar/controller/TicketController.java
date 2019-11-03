@@ -56,11 +56,8 @@ public class TicketController {
 	
 	@GetMapping("/list")
     public String showAllTickets(Model model) throws Exception {
-		tripp=new Trip();
         model.addAttribute("tickets", ticketService.getAllReservedTickets());
-        calculareAmountTickets(model);
-        tripp.setPrice(amountTicket);
-		model.addAttribute("tripp", tripp);
+       // calculareAmountTickets(model);
         return "tickets/list";
     }
 	
@@ -178,7 +175,7 @@ public class TicketController {
         return "redirect:/tickets/list";    
     }
 	
-	@PostMapping("/delete/{id}")
+	@GetMapping("/delete/{id}")
 	public String deleteTicket(@PathVariable("id") long id,Model model) throws Exception {
 		amountTicket-=ticketService.getOneById(id).getPrice();
 		ticketService.delete(id);
@@ -186,10 +183,11 @@ public class TicketController {
 		return "redirect:/tickets/list";
 	}
 	
-	@PostMapping("/buy/{id}")
+	@GetMapping("/buy/{id}")
 	public String buyTicket(@PathVariable("id") long id, Model model) throws Exception {
 		counter++;
-		ticketService.getOneById(id).setCondition(true);
+		//update condition to TRUE
+		ticketService.updateCondition(id);
 		amountTicket-=ticketService.getOneById(id).getPrice();
 		if(counter%3==0) {
 			couponController.addCoupon();
@@ -210,7 +208,7 @@ public class TicketController {
 	
 	public void calculareAmountTickets(Model model) {
 		try {
-			for(long i=0;i < ticketService.getAllReservedTickets().size();i++) {
+			for(long i=1;i <= ticketService.getAllReservedTickets().size();i++) {
 				amountTicket+=ticketService.getOneById(i).getPrice();
 			}
 		} catch (Exception e) {

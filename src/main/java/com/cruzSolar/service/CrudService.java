@@ -13,4 +13,6 @@ public interface CrudService<T, ID> {
 	public void delete(ID id) throws Exception;
 	
 	public T getOneById(Long id) throws Exception;
+	
+	public void updateCondition(ID id) throws Exception;
 }

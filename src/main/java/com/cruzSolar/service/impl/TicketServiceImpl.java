@@ -36,6 +36,14 @@ public class TicketServiceImpl implements TicketService{
 		//currentTicket.setTrip(entity.getTrip());
 		ticketRepository.save(currentTicket);
 	}
+	
+	@Transactional
+	@Override
+	public void updateCondition(Long id) throws Exception {
+		Ticket currentTicket=getOneById(id);
+		currentTicket.setCondition(true);
+		ticketRepository.save(currentTicket);
+	}
 
 	@Transactional
 	@Override
@@ -72,6 +80,7 @@ public class TicketServiceImpl implements TicketService{
 	public List<Ticket> getAllBoughtTickets() {
 		return ticketRepository.getAllBoughtTickets();
 	}
+	
 	
 
 }

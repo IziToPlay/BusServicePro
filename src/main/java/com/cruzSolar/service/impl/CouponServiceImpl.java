@@ -58,6 +58,12 @@ public class CouponServiceImpl implements CouponService {
 	public Coupon getOneById(Long id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void updateCondition(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}	
 	
 }

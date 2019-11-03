@@ -45,4 +45,10 @@ public class BusServiceImpl implements BusService{
 		
 	}
 
+	@Override
+	public void updateCondition(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
