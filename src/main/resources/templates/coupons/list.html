@@ -36,9 +36,11 @@
 							<th>Origen</th>
 							<th>Destino</th>
 							<th>Fecha de Vencimiento</th>
+							<th>Cliente</th>
+							<th>Estado</th>
 						</tr>
 					</thead>
-					<tbody|>
+					<tbody>
 						<tr th:each="coupon : ${coupons}">
 
 							<td th:text="${coupon.id}">cruzSolar</td>
@@ -47,8 +49,8 @@
 							<td th:text="${coupon.trip.dptDeparture.name}">cruzSolar</td>
 							<td th:text="${coupon.trip.dptArrival.name}">cruzSolar</td>
 							<td th:text="${coupon.expireDate}">cruzSolar</td>
-							
-							
+							<td th:text="${coupon.client.name}">cruzSolar</td>
+							<td th:text="${coupon.status}">cruzSolar</td>
 							
 					
 						

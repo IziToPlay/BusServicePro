@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.cruzSolar.model.entity.Client;
 import com.cruzSolar.model.repository.ClientRepository;
 import com.cruzSolar.service.ClientService;
-import com.cruzSolar.service.TicketService;
 
 @Service
 public class ClientServiceImpl implements ClientService{

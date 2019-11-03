@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cruzSolar.model.entity.Client;
 import com.cruzSolar.model.entity.Ticket;
 import com.cruzSolar.model.repository.TicketRepository;
 import com.cruzSolar.service.TicketService;

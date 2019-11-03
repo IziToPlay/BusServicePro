@@ -14,8 +14,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
-
-
 @Entity
 @Table(name = "coupons")
 public class Coupon {
@@ -46,6 +44,13 @@ public class Coupon {
 	@Column(name = "expire_date")
 	Date expireDate;
 
+	@Column(name="status")
+	private Boolean status;
+	
+	@ManyToOne
+	@JoinColumn(name="client_id",nullable=false)
+	private Client client;
+	
 	public Long getId() {
 		return id;
 	}
@@ -69,7 +74,6 @@ public class Coupon {
 	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
-
 	
 	public String getDescription() {
 		return description;
@@ -95,8 +99,6 @@ public class Coupon {
 		this.expireDate = expireDate;
 	}
 
-
-
 	public String getSpecialCode() {
 		return specialCode;
 	}
@@ -105,4 +107,21 @@ public class Coupon {
 		this.specialCode = specialCode;
 	}
 
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
 }
+

@@ -1,22 +1,18 @@
 package com.cruzSolar.controller;
 
 import java.util.List;
-import java.util.Random;
-
-import javax.persistence.Access;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cruzSolar.model.entity.Client;
-import com.cruzSolar.model.entity.Coupon;
 import com.cruzSolar.model.entity.Seat;
 import com.cruzSolar.model.entity.Ticket;
 import com.cruzSolar.model.entity.Trip;

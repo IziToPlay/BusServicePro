@@ -9,11 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.cruzSolar.model.entity.Client;
 import com.cruzSolar.model.entity.Coupon;
-import com.cruzSolar.model.entity.Seat;
-import com.cruzSolar.model.entity.Ticket;
-import com.cruzSolar.model.entity.Trip;
 import com.cruzSolar.service.CouponService;
 
 @Controller

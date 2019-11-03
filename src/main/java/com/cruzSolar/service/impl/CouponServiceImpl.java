@@ -1,15 +1,11 @@
 package com.cruzSolar.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.cruzSolar.model.entity.Coupon;
-import com.cruzSolar.model.entity.Trip;
 import com.cruzSolar.model.repository.CouponRepository;
 
 import com.cruzSolar.service.CouponService;
