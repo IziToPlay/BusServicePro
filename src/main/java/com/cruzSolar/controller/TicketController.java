@@ -48,7 +48,8 @@ public class TicketController {
 	@Autowired
 	private ClientController clientController;
 	
-	
+	@Autowired
+	private CouponController couponController;
 	
 	private Client client;
 	private Trip trip;
@@ -195,9 +196,8 @@ public class TicketController {
 		ticketService.getOneById(id).setCondition(true);
 		amountTicket-=ticketService.getOneById(id).getPrice();
 		if(counter%3==0) {
-			Random rand = new Random();
-		    Coupon randomCoupon = couponService.getAll().get(rand.nextInt(couponService.getAll().size()));
-		    model.addAttribute("info", "Cupón activado por compra de 3 tickets." + "Cupon:"+randomCoupon.getId()+"de código especial"+randomCoupon.getSpecialCode());    
+			couponController.addCoupon();
+		    model.addAttribute("info", "Cupón activado por compra de 3 tickets."); 
 		}else {
 		model.addAttribute("success", "Ticket comprado correctamente");
 		}

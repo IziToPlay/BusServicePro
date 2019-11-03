@@ -26,10 +26,16 @@ public class CouponController {
 	private CouponService couponService;
     private Coupon coupon;
 	List<Coupon> coupons;
+	private long i=0;
 	
+	public void addCoupon() throws Exception {
+		i++;
+		Coupon coupon=couponService.getOneById(i);
+		coupons.add(coupon);
+	}
 	@GetMapping("/list")
     public String showAllCoupon(Model model) throws Exception {
-        model.addAttribute("coupons", couponService.getAll());
+        model.addAttribute("coupons", coupons);
         return "coupons/list";
     }
 
@@ -42,8 +48,6 @@ public class CouponController {
 	
 	public  List<Coupon> searchCoupons(long id, Model model) {
 		try {
-			
-			
 			String filtroID = Long.toString(id);
 			
 			if(!filtroID.isEmpty()) {
