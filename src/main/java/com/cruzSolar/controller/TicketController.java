@@ -202,6 +202,7 @@ public class TicketController {
 	public void selectTicketToDiscount(@PathVariable("id") long id, Model model) throws Exception {
 		Ticket ticket=ticketService.getOneById(id);
 		model.addAttribute("success", "Ticket seleccionado para el descuento correctamente");
+		
 		//Enviar a formulario "Insert Coupon" para el viaje seleccionado, el cupon debe ser acorde al viaje, si se ingresa un cupon
 		//no valido para el viaje seleccionado entonces saldra mensaje de error
 	}
