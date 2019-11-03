@@ -67,6 +67,12 @@ public class TicketController {
         return "tickets/list";
     }
 	
+	@GetMapping("/listBoughtTickets")
+    public String showAllBoughtTickets(Model model) throws Exception {
+        model.addAttribute("tickets", ticketService.getAllBoughtTickets());
+        return "tickets/listBoughtTickets";
+    }
+	
 	@GetMapping("/new/{id}")
 	 public String newTicketForm(@PathVariable("id") long id, Model model) throws Exception{
 		model.addAttribute("ticket", new Ticket());

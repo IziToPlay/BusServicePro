@@ -1,0 +1,52 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head"></th:block>
+<body>
+
+	<th:block th:include="fragments/navbar"></th:block>
+	<div class="container">
+
+		<div class="card" style="max-width: 100%;">
+			<div class="card-header">Mis compras</div>
+			<div class="card-body">
+				
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Fecha de Emision</th>
+							<th>Nombre del pasajero</th>
+							<th>Apellido del pasajero</th>
+							<th>Dni</th>
+							<th>Origen</th>
+							<th>Destino</th>
+							<th>Asiento</th>
+							<th>Precio</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="ticket : ${tickets}">
+
+							<td th:text="${ticket.id}">cruzSolar</td>
+							<td th:text="${ticket.emissionDate}">cruzSolar</td>
+							<td th:text="${ticket.client.name}">cruzSolar</td>
+							<td th:text="${ticket.client.lastName}">cruzSolar</td>
+							<td th:text="${ticket.client.dni}">cruzSolar</td>
+							<td th:text="${ticket.trip.dptDeparture.name}">cruzSolar</td>
+							<td th:text="${ticket.trip.dptArrival.name}">cruzSolar</td>
+							<td th:text="${ticket.seat.number}">cruzSolar</td>
+							<td th:text="${ticket.price}">cruzSolar</td>
+								
+								
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	</div>
+	<th:block th:include="fragments/scripts"></th:block>
+
+</body>
+</html>
