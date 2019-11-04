@@ -52,9 +52,9 @@ INSERT INTO trips (start_date,final_date,price,bus_id,dpt_departure_id,dpt_arriv
 INSERT INTO trips (start_date,final_date,price,bus_id,dpt_departure_id,dpt_arrival_id,employee_id) VALUES ('2019-12-10 07:00:00','2019-12-11 13:38:00', 100.00,2, 1,3,3);
 INSERT INTO trips (start_date,final_date,price,bus_id,dpt_departure_id,dpt_arrival_id,employee_id) VALUES ('2019-10-26 12:38:00','2019-10-28 06:38:00', 50.00,3, 2,1,3);
 
-INSERT INTO coupons(description, discount, expire_date, release_date,special_code, trip_id,status,client_id) VALUES ('Cupon Navideño', 50, '1-12-2019','31-12-2019', '123456', 1,true,1);
-INSERT INTO coupons(description, discount, expire_date, release_date,special_code, trip_id,status,client_id) VALUES ('Cupon Navideño', 50, '1-12-2019','31-12-2019',  'ABC123', 2,true,2);
-INSERT INTO coupons(description, discount, expire_date, release_date,special_code, trip_id,status,client_id) VALUES ('Cupon Navideño', 50, '1-12-2019','31-12-2019', 'DEF456', 3,true,3);
+INSERT INTO coupons(description, discount, expire_date, release_date,special_code, trip_id,status,client_id) VALUES ('Cupon Navideño', 50, '1-12-2019','31-12-2019', '123456', 1,false,1);
+INSERT INTO coupons(description, discount, expire_date, release_date,special_code, trip_id,status,client_id) VALUES ('Cupon Navideño', 50, '1-12-2019','31-12-2019',  'ABC123', 2,false,2);
+INSERT INTO coupons(description, discount, expire_date, release_date,special_code, trip_id,status,client_id) VALUES ('Cupon Navideño', 50, '1-12-2019','31-12-2019', 'DEF456', 3,false,3);
 
 
 

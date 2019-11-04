@@ -56,13 +56,4 @@ public class ClientServiceImpl implements ClientService{
 		return clientRepository.fetchClientByDni(dni);
 	}
 
-<<<<<<< HEAD
-=======
-	@Override
-	public void updateCondition(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
->>>>>>> ddbbdcf2b597e5838e3c3d38a3e70a0df846c901
 }

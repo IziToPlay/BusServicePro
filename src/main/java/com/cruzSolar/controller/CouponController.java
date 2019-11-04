@@ -6,21 +6,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cruzSolar.model.entity.Coupon;
+import com.cruzSolar.service.ClientService;
 import com.cruzSolar.service.CouponService;
+import com.cruzSolar.service.TripService;
 
 @Controller
 @RequestMapping("/coupons")
-
 public class CouponController {
 
 
 	@Autowired
 	private CouponService couponService;
+	private ClientService clientService;
+	private TripService tripService;
     private Coupon coupon;
+    List<Coupon> couponSpecial;
 	List<Coupon> coupons;
 	private long i=0;
 	
@@ -31,15 +36,23 @@ public class CouponController {
 	}
 	@GetMapping("/list")
     public String showAllCoupon(Model model) throws Exception {
-        model.addAttribute("coupons", coupons);
+        model.addAttribute("coupons", couponService.getAll());
+        
         return "coupons/list";
     }
-
+	
 	@GetMapping("/searchCoupon")
 	public String searchCoupon(@RequestParam("id") long id, Model model) throws Exception
 	{
 		model.addAttribute("coupons",searchCoupons(id, model));
 		return "coupons/list";
+	}
+	
+	public List<Coupon> searchCouponBySpecial(String special, Model model) throws Exception
+	{
+		couponSpecial=couponService.fetchCouponBySpecial(special);
+		model.addAttribute("couponSpecial", couponSpecial);
+		return couponSpecial;
 	}
 	
 	public  List<Coupon> searchCoupons(long id, Model model) {
@@ -70,9 +83,6 @@ public class CouponController {
 		return coupons;
 	}
 	
-	
-
-	
 	public List<Coupon> getCoupons() {
 		return coupons;
 	}
@@ -80,7 +90,29 @@ public class CouponController {
 	public void setCoupons(List<Coupon> coupons) {
 		this.coupons = coupons;
 	}
-	
-	
+	public List<Coupon> getCouponSpecial() {
+		return couponSpecial;
+	}
+	public void setCouponSpecial(List<Coupon> couponSpecial) {
+		this.couponSpecial = couponSpecial;
+	}
+	public CouponService getCouponService() {
+		return couponService;
+	}
+	public void setCouponService(CouponService couponService) {
+		this.couponService = couponService;
+	}
+	public ClientService getClientService() {
+		return clientService;
+	}
+	public void setClientService(ClientService clientService) {
+		this.clientService = clientService;
+	}
+	public TripService getTripService() {
+		return tripService;
+	}
+	public void setTripService(TripService tripService) {
+		this.tripService = tripService;
+	}
 	
 }

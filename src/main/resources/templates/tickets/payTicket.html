@@ -7,54 +7,57 @@
 	<div class="container">
 
 		<div class="card" style="max-width: 100%;">
-			<div class="card-header">Datos del ticket</div>
+			<div class="card-header">PAGAR TICKET</div>
 			<div class="card-body">
 
-				<form th:object="${ticket}"  th:action="@{/tickets/update/{id}(id=${ticket.id})}" 
-					th:method="post">
-					
-					<div class="form-group">
-						<label for="fechaEmission">Fecha de emision</label> <input type="text"
-							class="form-control" id="fecha" aria-describedby="nameClient"
-							th:field="*{emissionDate}"  disabled="disabled" />
+
+
+				<form th:action="@{/tickets/searchCoupon}" method="get">
+
+					<div class="form-row align-items-center">
+
+						<div class="col-auto">
+							<Label class="sr-only" for="special">Datos a completar</Label> <input
+								id="special" type="text" class="form-control form-control-lg"
+								name="special" placeholder="Ingrese cupon">
+						</div>
+
+						<div class="col-auto">
+							<button type="submit" class="btn btn-primary">Buscar</button>
+						</div>
+
 					</div>
-					
-					<div class="form-group">
-						<label for="nameClient">Nombre del pasajero</label> <input type="text"
-							class="form-control" id="nameClient" aria-describedby="nameClient"
-							th:field="*{client.name}" disabled="disabled"/>
-					</div>
-					
-						<div class="form-group">
-						<label for="nameClient">Apellido del pasajero</label> <input type="text"
-							class="form-control" id="nameClient" aria-describedby="nameClient"
-							th:field="*{client.lastName}" disabled="disabled" />
-					</div>
-					
-					
-						<div class="form-group">
-						<label for="nameClient">Origen</label> <input type="text"
-							class="form-control" id="nameClient" aria-describedby="nameClient"
-							th:field="*{trip.dptDeparture.name}" disabled="disabled" />
-					</div>
-					
-					<div class="form-group">
-						<label for="nameClient">Destino</label> <input type="text"
-							class="form-control" id="nameClient" aria-describedby="nameClient"
-							th:field="*{trip.dptArrival.name}" disabled="disabled" />
-					</div>
-					
-					
-					<div class="form-group">
-						<label for="seat">Asiento</label> <input type="text"
-							class="form-control" id="seat" aria-describedby="seat"
-							th:field="*{seat.number}" disabled="disabled" />
-					</div>
-					
-				
-					<a th:href="@{/tickets/list/}" class="btn btn-primary">Regresar</a>
-					<button type="submit" class="btn btn-success">Save</button>
 				</form>
+
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Descripcion</th>
+							<th>Descuento (%)</th>
+							<th>Precio de viaje</th>
+							<th>Total a pagar</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="coupon : ${coupons}">
+
+							<td th:text="${coupon.id}">cruzSolar</td>
+							<td th:text="${coupon.description}">cruzSolar</td>
+							<td th:text="${coupon.discount}">cruzSolar</td>
+							<td th:text="${coupon.trip.price}">cruzSolar</td>
+                            <td th:text="*{coupon.calculatedAmount()}">cruzSolar</td>
+                            <td><a th:href="@{'/tickets/updateStatus/'+ ${coupon.id}}"
+								class="btn btn-primary">Utilizar</a></td>
+						</tr>
+
+					</tbody>
+				</table>
+
+				<a th:href="@{/tickets/list/}" class="btn btn-primary">Regresar</a>
+                
+               
 			</div>
 		</div>
 

@@ -56,8 +56,6 @@ public class TicketServiceImpl implements TicketService{
 	public List<Ticket> getAll() {
 		return ticketRepository.findAll();
 	}
-	
-	
 
 	@Transactional(readOnly=true)
 	@Override
@@ -80,7 +78,5 @@ public class TicketServiceImpl implements TicketService{
 	public List<Ticket> getAllBoughtTickets() {
 		return ticketRepository.getAllBoughtTickets();
 	}
-	
-	
 
 }

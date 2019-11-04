@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cruzSolar.model.entity.Coupon;
 import com.cruzSolar.model.repository.CouponRepository;
@@ -31,21 +32,24 @@ public class CouponServiceImpl implements CouponService {
 		return couponRepository.fetchCouponById(id);
 	}
 
-
-
 	@Override
 	public Long create(Coupon entity) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	@Override
 	public void update(Long id, Coupon entity) throws Exception {
 		// TODO Auto-generated method stub
-		
 	}
-
+	
+	@Transactional
+	@Override
+	public void updateStatus(Long id) throws Exception {
+		Coupon currentCoupon=getOneById(id);
+		currentCoupon.setStatus(true);
+		couponRepository.save(currentCoupon);
+	}
 
 	@Override
 	public void delete(Long id) throws Exception {
@@ -53,17 +57,14 @@ public class CouponServiceImpl implements CouponService {
 		
 	}
 
-
 	@Override
 	public Coupon getOneById(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	   return couponRepository.findById(id).orElseThrow(() -> new RuntimeException("Coupon Not Found!"));
 	}
 
 	@Override
-	public void updateCondition(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public List<Coupon> fetchCouponBySpecial(String specialCode) throws Exception {
+		return couponRepository.fetchCouponBySpecial(specialCode);
 	}	
 	
 }

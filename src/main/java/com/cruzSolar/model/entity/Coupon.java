@@ -123,5 +123,8 @@ public class Coupon {
 		this.client = client;
 	}
 
+	public Double calculatedAmount() {
+		return trip.getPrice()* (discount/100);
+	}
 }
 
