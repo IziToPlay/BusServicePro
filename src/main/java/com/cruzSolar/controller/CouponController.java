@@ -29,8 +29,9 @@ public class CouponController {
 	List<Coupon> coupons;
 	private long i=0;
 	
-	public void account() {
+	public void account() throws Exception {
 		i++;
+		couponService.updateGiftStatus(i);
 	}
 	
 	@GetMapping("/list")

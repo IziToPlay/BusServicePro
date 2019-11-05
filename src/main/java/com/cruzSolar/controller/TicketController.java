@@ -192,7 +192,7 @@ public class TicketController {
 
 			if (!coupons.isEmpty()) {
 				if (ticketSelect.getTrip().getId() == cu.getTrip().getId()) {
-					if (cu.getStatus() == false)
+					if (cu.getStatus() == false &&cu.getGiftStatus()==true)
 						model.addAttribute("coupons", coupons);
 					else
 						model.addAttribute("info", "El cupon no esta disponible");

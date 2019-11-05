@@ -76,6 +76,13 @@ public class CouponServiceImpl implements CouponService {
 	@Override
 	public List<Coupon> couponsAddToList(long id) throws Exception {
 		return couponRepository.couponsAddToList(id);
+	}
+
+	@Override
+	public void updateGiftStatus(Long id) throws Exception {
+		Coupon currentCoupon=getOneById(id);
+		currentCoupon.setGiftStatus(true);
+		couponRepository.save(currentCoupon);		
 	}	
 	
 }

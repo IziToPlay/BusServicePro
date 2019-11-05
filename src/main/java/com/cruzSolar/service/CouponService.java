@@ -10,6 +10,8 @@ public interface CouponService extends CrudService<Coupon, Long>{
 	List<Coupon> fetchCouponBySpecial(String specialCode) throws Exception;
 
 	void updateStatus(Long id) throws Exception;
+	
+	void updateGiftStatus(Long id)throws Exception;
 
 	Coupon fetchCouponBySpe(String specialCode) throws Exception;
 	
