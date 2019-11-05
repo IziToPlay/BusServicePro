@@ -10,6 +10,24 @@
 			<div class="card-header">Mis compras</div>
 			<div class="card-body">
 				
+				<form th:action="@{/tickets/searchBoughtTicket}" method="get">
+
+					<div class="form-row align-items-center">
+
+						<div class="col-auto">
+							<Label class="sr-only" for="id">Buscar código</Label> <input
+								id="id" type="text" class="form-control form-control-lg"
+								name="id" 
+								>
+
+						</div>
+						<div class="col-auto">
+							<button type="submit" class="btn btn-primary">Buscar</button>
+
+						</div>
+					</div>
+				</form>		
+				
 				<table class="table table-striped">
 					<thead>
 						<tr>
