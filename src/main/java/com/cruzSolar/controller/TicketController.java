@@ -92,17 +92,26 @@ public class TicketController {
 
 	@GetMapping("/searchCoupon")
 	public String searchCoupon(@RequestParam("special") String special, Model model) throws Exception {
-		
-		List<Coupon> coupons=couponController.searchCouponBySpecial(special, model);
-		
-		if(ticketSelect.getTrip().getId()== couponService.fetchCouponBySpe(special).getTrip().getId())
-        {
-			model.addAttribute("coupons", coupons);
-        }else 
-        {
-			model.addAttribute("info", "El cupon no corresponde a este viaje");
-		}
-	    return "tickets/payTicket";
+
+		if (!special.isEmpty()) {
+			List<Coupon> coupons = couponController.searchCouponBySpecial(special, model);
+			Coupon cu = couponService.fetchCouponBySpe(special);
+
+			if (!coupons.isEmpty()) {
+				if (ticketSelect.getTrip().getId() == cu.getTrip().getId()) {
+					if (cu.getStatus() == false)
+						model.addAttribute("coupons", coupons);
+					else
+						model.addAttribute("info", "El cupon no esta disponible");
+				} else {
+					model.addAttribute("infor", "El cupon no corresponde a este viaje");
+				}
+			} else {
+				model.addAttribute("info", "No existe el cupon");
+			}
+		} else
+			model.addAttribute("info", "Debe completar el campo de búsqueda");
+		return "tickets/payTicket";
 	}
 
 	@GetMapping("/connect/{id}")
@@ -172,8 +181,8 @@ public class TicketController {
 
 	@GetMapping("/payTicket/{id}")
 	public String payTicket(@PathVariable("id") long id, Model model) throws Exception {
-        ticketSelect = ticketService.getOneById(id);
-	    Ticket ticket = ticketService.getOneById(id);
+		ticketSelect = ticketService.getOneById(id);
+		Ticket ticket = ticketService.getOneById(id);
 		model.addAttribute("clients", clientService.getAll());
 		model.addAttribute("seats", seatService.findAllSeatsAvailables(ticket.getTrip().getBus().getId()));
 		model.addAttribute("trips", tripService.getAll());
@@ -215,22 +224,25 @@ public class TicketController {
 		// update condition to TRUE
 		ticketService.updateCondition(id);
 		amountTicket -= ticketService.getOneById(id).getPrice();
+
 		if (counter % 3 == 0) {
 			couponController.addCoupon();
 			model.addAttribute("info", "Cupón activado por compra de 3 tickets.");
 		} else {
 			model.addAttribute("success", "Ticket comprado correctamente");
 		}
+
 		return "redirect:/tickets/list";
 	}
-	
+
 	@GetMapping("/updateStatus/{id}")
 	public String updateStatus(@PathVariable("id") long id, Model model) throws Exception {
-		
-		Coupon couponFound=couponService.getOneById(id);
+
+		Coupon couponFound = couponService.getOneById(id);
 		couponService.updateStatus(id);
 		model.addAttribute("tickets", ticketService.getAllReservedTickets());
-		ticketService.udpatePrice(ticketSelect.getId(), (couponFound.getDiscount()/100)*couponFound.getTrip().getPrice());
+		ticketService.udpatePrice(ticketSelect.getId(),
+				(couponFound.getDiscount() / 100) * couponFound.getTrip().getPrice());
 		return "tickets/list";
 	}
 
