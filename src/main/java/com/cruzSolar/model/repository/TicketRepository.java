@@ -20,4 +20,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>{
 	@Query("select t from Ticket t where t.condition = FALSE")
 	List <Ticket> getAllReservedTickets();
 	
+	@Query("select t from Ticket t where t.id = ?1")
+	List <Ticket> fetchTicketById(long id);
 }

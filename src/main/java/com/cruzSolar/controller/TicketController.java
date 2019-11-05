@@ -54,6 +54,7 @@ public class TicketController {
 	private Trip tripp;
 	List<Ticket> tickets;
 	private Ticket ticketSelect;
+	List<Ticket> ticketsBought;
 	List<Coupon> coupons;
 	private double amountTicket=0;
 	private int counter=0;
@@ -85,6 +86,41 @@ public class TicketController {
 		List<Seat> seats = seatService.findAllSeatsAvailables(id);
 		model.addAttribute("seats",seats);
 		return "tickets/new";
+	}
+	
+	@GetMapping("/searchBoughtTicket")
+	public String searchBoughtTicket(@RequestParam("id") String id, Model model) throws Exception
+	{
+		model.addAttribute("tickets",searchBoughtTickets(id, model));
+		return "tickets/listBoughtTickets";
+	}
+	
+	public  List<Ticket> searchBoughtTickets(String filtroid, Model model) {
+		try {
+			
+			if(!filtroid.isEmpty()) {
+				
+			    long id = Long.parseLong(filtroid);
+				model.addAttribute("info", "Búsqueda realizada correctamente");
+				ticketsBought=ticketService.fetchTicketById(id);
+				if(!tickets.isEmpty()) {
+					model.addAttribute("tickets", ticketsBought);
+				}
+				else {
+						model.addAttribute("info", "No se han encontrado coincidencias");
+						model.addAttribute("tickets",ticketService.getAllBoughtTickets());
+				}
+			}
+			else {
+				model.addAttribute("info", "Debe completar el campo de búsqueda.");
+			    //model.addAttribute("coupons", couponService.getAll());				
+			}
+		}   
+	    catch(Exception e) 
+		{
+			model.addAttribute("Error Ticket:", e.getMessage());
+		}
+		return ticketsBought;
 	}
 	
 	@GetMapping("/searchClient")

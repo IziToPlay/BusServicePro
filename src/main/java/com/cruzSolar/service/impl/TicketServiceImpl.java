@@ -86,4 +86,9 @@ public class TicketServiceImpl implements TicketService{
 		ticketRepository.save(currentTicket);
 	}
 
+	@Override
+	public List<Ticket> fetchTicketById(long id) throws Exception {
+		return ticketRepository.fetchTicketById(id);
+	}
+
 }
