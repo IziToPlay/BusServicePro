@@ -42,7 +42,7 @@ public class CouponController {
     }
 	
 	@GetMapping("/searchCoupon")
-	public String searchCoupon(@RequestParam("id") long id, Model model) throws Exception
+	public String searchCoupon(@RequestParam("id") String id, Model model) throws Exception
 	{
 		model.addAttribute("coupons",searchCoupons(id, model));
 		return "coupons/list";
@@ -55,13 +55,16 @@ public class CouponController {
 		return couponSpecial;
 	}
 	
-	public  List<Coupon> searchCoupons(long id, Model model) {
+	public  List<Coupon> searchCoupons(String id, Model model) {
 		try {
-			String filtroID = Long.toString(id);
+		
+			//String filtroID = Long.toString(id);
 			
-			if(!filtroID.isEmpty()) {
+			if(!id.isEmpty()) {
+				
+			    long filtro = Long.parseLong(id);
 				model.addAttribute("info", "Búsqueda realizada correctamente");
-				coupons=couponService.fetchCouponById(id);
+				coupons=couponService.fetchCouponById(filtro);
 				if(!coupons.isEmpty()) {
 					model.addAttribute("coupons", coupons);
 				}
@@ -72,8 +75,7 @@ public class CouponController {
 			}
 			else {
 				model.addAttribute("info", "Debe completar el campo de búsqueda.");
-				model.addAttribute("coupons",couponService.getAll()); 
-				
+			    //model.addAttribute("coupons", couponService.getAll());				
 			}
 		}   
 	    catch(Exception e) 
