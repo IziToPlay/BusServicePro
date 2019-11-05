@@ -24,19 +24,26 @@ public class CouponController {
 	private CouponService couponService;
 	private ClientService clientService;
 	private TripService tripService;
-    private Coupon coupon;
     List<Coupon> couponSpecial;
+	List<Coupon> couponsAdded;
 	List<Coupon> coupons;
-	private long i=0;
+	private long i=1;
 	
-	public void addCoupon() throws Exception {
-		i++;
-		Coupon coupon=couponService.getOneById(i);
+	/*public void addCoupon(Coupon coupon, Model model){
+		try {
+		coupon=couponService.getOneById(i);
 		coupons.add(coupon);
+		i++;
+		}catch(Exception e) {
+			model.addAttribute("error", e.getStackTrace());
+		}
+	}*/
+	public void connectCoupons(List<Coupon> coupons){
+		couponsAdded=coupons;
 	}
 	@GetMapping("/list")
     public String showAllCoupon(Model model) throws Exception {
-        model.addAttribute("coupons", couponService.getAll());
+        model.addAttribute("coupons", couponsAdded);
         
         return "coupons/list";
     }
@@ -113,6 +120,18 @@ public class CouponController {
 	}
 	public void setTripService(TripService tripService) {
 		this.tripService = tripService;
+	}
+	public List<Coupon> getCouponsAdded() {
+		return couponsAdded;
+	}
+	public void setCouponsAdded(List<Coupon> couponsAdded) {
+		this.couponsAdded = couponsAdded;
+	}
+	public long getI() {
+		return i;
+	}
+	public void setI(long i) {
+		this.i = i;
 	}
 	
 }

@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.Type;
 
@@ -27,6 +28,7 @@ public class Coupon {
 	@JoinColumn(name = "trip_id",nullable=false)
 	private Trip trip;
 	
+	@NotEmpty(message="Enter the special code")
 	@Column(name = "special_code")
 	private String specialCode;
 	

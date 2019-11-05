@@ -79,4 +79,11 @@ public class TicketServiceImpl implements TicketService{
 		return ticketRepository.getAllBoughtTickets();
 	}
 
+	@Override
+	public void udpatePrice(Long id, Double priceCon) throws Exception {
+		Ticket currentTicket=getOneById(id);
+		currentTicket.setPrice(priceCon);
+		ticketRepository.save(currentTicket);
+	}
+
 }

@@ -44,4 +44,11 @@ public class DepartmentServiceImpl implements DepartmentService{
 		return null;
 	}
 
+	@Override
+	public void updateCondition(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	
+
 }
