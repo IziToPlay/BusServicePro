@@ -72,10 +72,10 @@ public class CouponServiceImpl implements CouponService {
 		return couponRepository.fetchCouponBySpe(specialCode);
 	}
 
+
 	@Override
-	public void updateCondition(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public List<Coupon> couponsAddToList(long id) throws Exception {
+		return couponRepository.couponsAddToList(id);
 	}	
 	
 }

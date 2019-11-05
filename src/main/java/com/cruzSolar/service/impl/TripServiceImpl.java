@@ -53,12 +53,6 @@ public class TripServiceImpl implements TripService{
 		return tripRepository.fetchTripByDpt(dptDeparture,dptArrival, startDate);
 	}
 
-	
-	@Override
-	public void updateCondition(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 

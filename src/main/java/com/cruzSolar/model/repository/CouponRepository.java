@@ -18,4 +18,8 @@ public interface CouponRepository extends JpaRepository<Coupon, Long>{
 	
 	@Query("select c from Coupon c where c.specialCode =?1")
 	Coupon fetchCouponBySpe(String specialCode);
+	
+	@Query("select c from Coupon c where c.id <= ?1")
+	List<Coupon>couponsAddToList(long id);
+	
 }

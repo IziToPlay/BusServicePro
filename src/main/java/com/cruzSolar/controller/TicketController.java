@@ -53,10 +53,11 @@ public class TicketController {
 	private Trip trip;
 	private Trip tripp;
 	List<Ticket> tickets;
+	private Ticket ticketSelect;
 	List<Coupon> coupons;
 	private double amountTicket;
 	private int counter=0;
-	private long i=0;
+	//private long i=0;
 	
 	@GetMapping("/list")
     public String showAllTickets(Model model) throws Exception {
@@ -163,7 +164,7 @@ public class TicketController {
 	
 	@GetMapping("/payTicket/{id}")
 	public String payTicket(@PathVariable("id") long id, Model model) throws Exception{
-		
+		ticketSelect= ticketService.getOneById(id);
 		Ticket ticket= ticketService.getOneById(id);
         List<Client> clients = clientService.getAll();
 		model.addAttribute("clients",clients);
@@ -173,6 +174,38 @@ public class TicketController {
 		return "tickets/payTicket";
 	}
 	
+	@GetMapping("/updateStatus/{id}")
+	public String updateStatus(@PathVariable("id") long id, Model model) throws Exception {
+
+		Coupon couponFound=couponService.getOneById(id);
+		couponService.updateStatus(id);
+		model.addAttribute("tickets", ticketService.getAllReservedTickets());
+		ticketService.udpatePrice(ticketSelect.getId(), (couponFound.getDiscount()/100)*couponFound.getTrip().getPrice());
+		return "tickets/list";
+	}
+	
+	@GetMapping("/searchCoupon")
+	public String searchCoupon(@RequestParam("special") String special, Model model) throws Exception {
+		if (!special.isEmpty()) {
+			List<Coupon> coupons = couponController.searchCouponBySpecial(special, model);
+			Coupon cu = couponService.fetchCouponBySpe(special);
+
+			if (!coupons.isEmpty()) {
+				if (ticketSelect.getTrip().getId() == cu.getTrip().getId()) {
+					if (cu.getStatus() == false)
+						model.addAttribute("coupons", coupons);
+					else
+						model.addAttribute("info", "El cupon no esta disponible");
+				} else {
+					model.addAttribute("infor", "El cupon no corresponde a este viaje");
+				}
+			} else {
+				model.addAttribute("info", "No existe el cupon");
+			}
+		} else
+			model.addAttribute("info", "Debe completar el campo de búsqueda");
+		return "tickets/payTicket";
+	}
 	
 	@GetMapping("/edit/{id}")
     public String editTicketForm(@PathVariable("id") long id, Model model) throws Exception {
@@ -191,6 +224,7 @@ public class TicketController {
     public String updateTicket(@PathVariable("id") long id, Ticket ticket,Model model) throws Exception {
         ticketService.update(id, ticket);
         model.addAttribute("success","Ticket actualizado correctamente");
+        tickets=ticketService.getAllReservedTickets();
         return "redirect:/tickets/list";    
     }
 	
@@ -209,14 +243,12 @@ public class TicketController {
 		ticketService.updateCondition(id);
 		amountTicket-=ticketService.getOneById(id).getPrice();
 		if(counter%3==0) {
-			i++;
-			coupon=new Coupon();
-			coupon=couponService.getOneById(i);
-			coupons.add(coupon);
-			couponController.connectCoupons(coupons);
-		    model.addAttribute("info", "Cupón activado por compra de 3 tickets."); 
+			//i++;
+			
+			couponController.account();
+			model.addAttribute("info", "Cupón activado por compra de 3 tickets."); 
 		}else {
-		model.addAttribute("success", "Ticket comprado correctamente");
+			model.addAttribute("success", "Ticket comprado correctamente");
 		}
 		return "redirect:/tickets/list";
 	}
@@ -403,18 +435,4 @@ public class TicketController {
 	public void setCounter(int counter) {
 		this.counter = counter;
 	}
-
-
-
-	public long getI() {
-		return i;
-	}
-
-
-
-	public void setI(long i) {
-		this.i = i;
-	}
-
-
 }

@@ -27,22 +27,15 @@ public class CouponController {
     List<Coupon> couponSpecial;
 	List<Coupon> couponsAdded;
 	List<Coupon> coupons;
-	private long i=1;
+	private long i=0;
 	
-	/*public void addCoupon(Coupon coupon, Model model){
-		try {
-		coupon=couponService.getOneById(i);
-		coupons.add(coupon);
+	public void account() {
 		i++;
-		}catch(Exception e) {
-			model.addAttribute("error", e.getStackTrace());
-		}
-	}*/
-	public void connectCoupons(List<Coupon> coupons){
-		couponsAdded=coupons;
 	}
+	
 	@GetMapping("/list")
     public String showAllCoupon(Model model) throws Exception {
+		couponsAdded=couponService.couponsAddToList(i);
         model.addAttribute("coupons", couponsAdded);
         
         return "coupons/list";

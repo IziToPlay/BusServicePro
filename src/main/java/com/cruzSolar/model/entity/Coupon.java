@@ -49,6 +49,9 @@ public class Coupon {
 	@Column(name="status")
 	private Boolean status;
 	
+	@Column(name="gif_status")
+	private Boolean giftStatus;
+	
 	@ManyToOne
 	@JoinColumn(name="client_id",nullable=false)
 	private Client client;
@@ -127,6 +130,14 @@ public class Coupon {
 
 	public Double calculatedAmount() {
 		return trip.getPrice()* (discount/100);
+	}
+
+	public Boolean getGiftStatus() {
+		return giftStatus;
+	}
+
+	public void setGiftStatus(Boolean giftStatus) {
+		this.giftStatus = giftStatus;
 	}
 }
 
