@@ -65,6 +65,11 @@ public class CouponServiceImpl implements CouponService {
 	@Override
 	public List<Coupon> fetchCouponBySpecial(String specialCode) throws Exception {
 		return couponRepository.fetchCouponBySpecial(specialCode);
+	}
+
+	@Override
+	public Coupon fetchCouponBySpe(String specialCode) throws Exception {
+		return couponRepository.fetchCouponBySpe(specialCode);
 	}	
 	
 }

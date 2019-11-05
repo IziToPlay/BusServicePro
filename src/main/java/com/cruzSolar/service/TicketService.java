@@ -13,4 +13,6 @@ public interface TicketService extends CrudService<Ticket, Long> {
 	List <Ticket> getAllBoughtTickets();
 
 	void updateCondition(Long id) throws Exception;
+	
+	void udpatePrice(Long id, Double priceDes)throws Exception;
 }
