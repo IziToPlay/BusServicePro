@@ -56,8 +56,6 @@ public class TicketServiceImpl implements TicketService{
 	public List<Ticket> getAll() {
 		return ticketRepository.findAll();
 	}
-	
-	
 
 	@Transactional(readOnly=true)
 	@Override
@@ -80,7 +78,12 @@ public class TicketServiceImpl implements TicketService{
 	public List<Ticket> getAllBoughtTickets() {
 		return ticketRepository.getAllBoughtTickets();
 	}
-	
-	
+
+	@Override
+	public void udpatePrice(Long id, Double priceCon) throws Exception {
+		Ticket currentTicket=getOneById(id);
+		currentTicket.setPrice(priceCon);
+		ticketRepository.save(currentTicket);
+	}
 
 }

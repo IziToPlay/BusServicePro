@@ -50,6 +50,7 @@ public class SeatServiceImpl implements SeatService {
 		return seatRepository.findAllSeatsAvailables(bus_id);
 	}
 
+
 	@Override
 	public void updateCondition(Long id) throws Exception {
 		// TODO Auto-generated method stub

@@ -13,6 +13,9 @@ public interface CouponRepository extends JpaRepository<Coupon, Long>{
 	@Query("select c from Coupon c where c.id = ?1")
 	List<Coupon> fetchCouponById(long id);
 
-	//Page<Coupon> findAll(Pageable pageable);
+	@Query("select c from Coupon c where c.specialCode =?1")
+	List<Coupon> fetchCouponBySpecial(String specialCode);
 	
+	@Query("select c from Coupon c where c.specialCode =?1")
+	Coupon fetchCouponBySpe(String specialCode);
 }

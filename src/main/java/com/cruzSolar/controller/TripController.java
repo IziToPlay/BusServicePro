@@ -61,12 +61,10 @@ public class TripController {
 	
 	@GetMapping("/searchTrip")
 	public String searchTrips(@RequestParam("dptDeparture") String dptDeparture, @RequestParam("dptArrival") String dptArrival, @RequestParam("startDate") String startDate, Model model) throws Exception{
-		
 		model.addAttribute("trips",searchTrip(dptDeparture,dptArrival,startDate, model));
 		return "trips/list";
-		
 	}
-
+	
 	public Trip getTrip() {
 		return trip;
 	}
