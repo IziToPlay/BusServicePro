@@ -58,8 +58,6 @@ public class CouponController {
 	public  List<Coupon> searchCoupons(String id, Model model) {
 		try {
 		
-			//String filtroID = Long.toString(id);
-			
 			if(!id.isEmpty()) {
 				
 			    long filtro = Long.parseLong(id);
