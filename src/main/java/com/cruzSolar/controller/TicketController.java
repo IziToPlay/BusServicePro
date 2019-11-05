@@ -55,15 +55,16 @@ public class TicketController {
 	List<Ticket> tickets;
 	private Ticket ticketSelect;
 	List<Coupon> coupons;
-	private double amountTicket;
+	private double amountTicket=0;
 	private int counter=0;
 	//private long i=0;
 	
 	@GetMapping("/list")
     public String showAllTickets(Model model) throws Exception {
-        model.addAttribute("tickets", ticketService.getAllReservedTickets());
-       // calculareAmountTickets(model);
-        return "tickets/list";
+       model.addAttribute("tickets", ticketService.getAllReservedTickets());
+       calculareAmountTickets(model);
+       model.addAttribute("amounTicket",amountTicket);
+       return "tickets/list";
     }
 	
 	
@@ -263,6 +264,7 @@ public class TicketController {
 	}
 	
 	public void calculareAmountTickets(Model model) {
+		amountTicket=0;
 		try {
 			for(long i=1;i <= ticketService.getAllReservedTickets().size();i++) {
 				amountTicket+=ticketService.getOneById(i).getPrice();

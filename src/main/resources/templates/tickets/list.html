@@ -16,8 +16,8 @@
 					<div class="form-row align-items-center">
 
 						<div class="col-auto">
-							<Label class="sr-only" for="inputFechaEmision">Datos a completar</Label> <input
-								id="inputFechaEmision" type="date" class="form-control form-control-lg"
+							<Label class="sr-only" for="inputFechaEmision">Datos a completar</Label> 
+							<input type="date" id="inputFechaEmision" class="form-control form-control-lg"
 								name="emissionDate" 
 								placeholder="Buscar fecha de emision">
 
@@ -62,20 +62,22 @@
 							<td th:text="${ticket.price}">cruzSolar</td>
 							
 							<td><a th:href="@{'/tickets/payTicket/'+ ${ticket.id}}"
-								class="btn btn-primary">Cupon</a></td>
+								class="btn btn-warning">Cupon</a></td>
 								
 							<td><a th:href="@{'/tickets/buy/' + ${ticket.id} }"
-								class="btn btn-primary">Ticket</a></td>
+								class="btn btn-success">Ticket</a></td>
 								
 							<td><a th:href="@{'/tickets/edit/' + ${ticket.id} }"
-								class="btn btn-primary">Reserva</a></td>
+								class="btn btn-info">Reserva</a></td>
 								
 							<td><a th:href="@{'/tickets/delete/' + ${ticket.id} }"
-								class="btn btn-primary">Reserva</a></td>	
+								class="btn btn-danger">Reserva</a></td>	
 								
 						</tr>
 					</tbody>
 				</table>
+					<label for="fechaEmission">Monto Total: </label> 
+					<p th:text="${amounTicket}"></p>
 			</div>
 		</div>
 		
