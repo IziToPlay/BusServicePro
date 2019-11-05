@@ -62,14 +62,14 @@ public class CouponController {
 		return couponSpecial;
 	}
 	
-	public  List<Coupon> searchCoupons(String id, Model model) {
+	public  List<Coupon> searchCoupons(String filtroid, Model model) {
 		try {
 		
-			if(!id.isEmpty()) {
+			if(!filtroid.isEmpty()) {
 				
-			    long filtro = Long.parseLong(id);
+			    long id = Long.parseLong(filtroid);
 				model.addAttribute("info", "Búsqueda realizada correctamente");
-				coupons=couponService.fetchCouponById(filtro);
+				coupons=couponService.fetchCouponById(id);
 				if(!coupons.isEmpty()) {
 					model.addAttribute("coupons", coupons);
 				}
