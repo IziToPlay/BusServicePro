@@ -1,6 +1,7 @@
 package com.cruzSolar.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.cruzSolar.common.PageTripListPagination;
 import com.cruzSolar.model.entity.Trip;
 import com.cruzSolar.service.BusService;
 import com.cruzSolar.service.DepartmentService;
@@ -27,15 +30,22 @@ public class TripController {
 	@Autowired
 	private DepartmentService departmentService;
 	
+	@Autowired
+	private PageTripListPagination pageTripListPagination;
+	
 	private Trip trip;
 	List<Trip> trips;
 	
 	@GetMapping("/list")
-	public String showAllTrips(Model model) throws Exception {
-		model.addAttribute("trips", tripService.getAll());
-		model.addAttribute("buses", busService.getAll());
-		model.addAttribute("departments", departmentService.getAll());
-		return "trips/list";
+	public ModelAndView getAllArticles(
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+			@RequestParam("page") Optional<Integer> page
+			) {
+		ModelAndView modelAndView = 
+				pageTripListPagination.initPaginationTrip(pageSize
+						,page
+						, "trips/list");
+		return modelAndView;
 	}
 	
 	public  List<Trip> searchTrip(String dptDeparture,String dptArrival,String startDate, Model model){
@@ -62,7 +72,7 @@ public class TripController {
 	@GetMapping("/searchTrip")
 	public String searchTrips(@RequestParam("dptDeparture") String dptDeparture, @RequestParam("dptArrival") String dptArrival, @RequestParam("startDate") String startDate, Model model) throws Exception{
 		model.addAttribute("trips",searchTrip(dptDeparture,dptArrival,startDate, model));
-		return "trips/list";
+		return "trips/listbusqueda";
 	}
 	
 	public Trip getTrip() {
