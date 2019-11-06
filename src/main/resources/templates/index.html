@@ -1,11 +1,179 @@
-<!doctype html>
+<!DOCTYPE HTML>
+<!--
+	Projection by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:include="fragments/head"></th:block>
-<body>
+	<head>
+		<title>Projection by TEMPLATED</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+	</head>
+	<body>
 
-	<th:block th:include="fragments/navbar"></th:block>
-	<div class="container"></div>
-	<th:block th:include="fragments/scripts"></th:block>
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="index.html" class="logo"><strong>Cruz Solar</strong></a>
+					<nav id="nav">
+						<a href="elements.html">Iniciar Sesión</a>
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
 
-</body>
+		<!-- Banner -->
+			<section id="banner">
+				<div class="inner">
+					<header>
+						<h1>Bienvenido a Bus Service Pro</h1>
+					</header>
+
+					<div class="flex ">
+
+						<div>
+							<span class="icon fa-car"></span>
+							<h3>Itinerario</h3>
+							<p>Visualiza el itinerario <br />completo</p>
+						</div>
+
+						<div>
+							<span class="icon fa-camera"></span>
+							<h3>Reserva</h3>
+							<p>Adquiere tus pasajes <br />de forma segura</p>
+						</div>
+
+						<div>
+							<span class="icon fa-bug"></span>
+							<h3>Promociones</h3>
+							<p>Descuentos a través<br /> de la plataforma</p>
+						</div>
+
+					</div>
+
+					<footer>
+						<a th:href="@{/trips/list}" class="button">Ingresar</a>
+					</footer>
+				</div>
+			</section>
+
+
+		<!-- Three -->
+			<section id="three" class="wrapper align-center">
+				<div class="inner">
+				<h2>Desarrolladores</h2>
+					<div class="flex flex-2">
+						<article>
+							<div class="image round">
+								<img src="images/miguelcalderon.jpg" widht=150px height=150px alt="Pic 01" />
+							</div>
+							<header>
+								<h3>Miguel Angel<br /> Calderon Zapana</h3>
+							</header>
+							<p>Estudiante de Ingeniería de Sistemas de Información<br />
+							 en la Universidad Peruana de Ciencias Aplicadas (UPC)<br />
+							Actualmente cursa el 6to ciclo de la carrera.</p>
+							
+						</article>
+						<article>
+							<div class="image round">
+								<img src="images/richardjoaquin.png" widht=150px height=150px alt="Pic 02" />
+							</div>
+							<header>
+								<h3>Richard<br /> Joaquin Churo</h3>
+							</header>
+							<p>Estudiante de Ingeniería de Sistemas de Información <br />
+							en la Universidad Peruana de Ciencias Aplicadas (UPC). <br />
+							Actualmente cursa el 6to ciclo de la carrera.</p>
+							
+						</article>
+					</div>
+					
+					<br />
+					<div class="flex flex-2">
+						<article>
+							<div class="image round">
+								<img src="images/joselovon.jpg" widht=150px height=150px alt="Pic 01" />
+							</div>
+							<header>
+								<h3>Jose Luis<br /> Lovon Vega</h3>
+							</header>
+							<p>Estudiante de la carrera de Ingeniería de Sistemas de <br />
+							Información de la Universidad de Ciencias Aplicadas del Perú. <br />							
+							Actualmente curso el 6to ciclo de la carrera.<br /></p>
+							
+						</article>
+						<article>
+							<div class="image round">
+								<img src="images/alexmeza2.jpg" widht=150px height=150px alt="Pic 02" />
+							</div>
+							<header>
+								<h3>Alex<br /> Meza Cuba</h3>
+							</header>
+							<p>Estudiante de Ingeniería de Sistemas de Información<br />
+							 en la Universidad Peruana de Ciencias Aplicadas (UPC)<br />
+							Actualmente cursa el 6to ciclo de la carrera.</p>				
+						</article>
+					</div>
+					
+					<br />
+					<div class="flex flex-2">
+						<article>
+							<div class="image round">
+								<img src="images/juanpacheco.jpg" widht=150px height=150px alt="Pic 01" />
+							</div>
+							<header>
+								<h3>Juan<br /> Pacheco</h3>
+							</header>
+							<p>Estudiante de Ingeniería de Sistemas de Información<br />
+							 en la Universidad Peruana de Ciencias Aplicadas (UPC)<br />
+							Actualmente cursa el 6to ciclo de la carrera.</p>
+						</article>
+						
+					</div>
+					
+				</div>
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+
+					<h3>Contáctanos</h3>
+
+					<form action="#" method="post">
+
+						<div class="field half first">
+							<label for="name">Nombre</label>
+							<input name="name" id="name" type="text" placeholder="Name">
+						</div>
+						<div class="field half">
+							<label for="email">Correo</label>
+							<input name="email" id="email" type="email" placeholder="Email">
+						</div>
+						<div class="field">
+							<label for="message">Mensaje</label>
+							<textarea name="message" id="message" rows="6" placeholder="Message"></textarea>
+						</div>
+						<ul class="actions">
+							<li><input value="Enviar Mensaje" class="button alt" type="submit"></li>
+						</ul>
+					</form>
+
+					<div class="copyright">
+						&copy; Cruz Solar. Diseñado por: <a href="https://templated.co">TeamConsult</a>. Imageness: <a href="https://unsplash.com">Unsplash</a>.
+					</div>
+
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/skel.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+
+	</body>
 </html>
