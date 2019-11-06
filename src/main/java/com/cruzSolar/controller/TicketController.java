@@ -220,7 +220,7 @@ public class TicketController {
 		model.addAttribute("tickets", ticketService.getAllReservedTickets());
 		ticketService.udpatePrice(ticketSelect.getId(),
 				(couponFound.getDiscount() / 100) * couponFound.getTrip().getPrice());
-		return "tickets/list";
+		return "redirect:/tickets/list";
 	}
 
 	@GetMapping("/searchCoupon")
@@ -269,7 +269,7 @@ public class TicketController {
 
 	@GetMapping("/delete/{id}")
 	public String deleteTicket(@PathVariable("id") long id, Model model) throws Exception {
-		amountTicket -= ticketService.getOneById(id).getPrice();
+		//amountTicket -= ticketService.getOneById(id).getPrice();
 		ticketService.delete(id);
 		model.addAttribute("success", "Ticket eliminado correctamente");
 		return "redirect:/tickets/list";
@@ -280,10 +280,9 @@ public class TicketController {
 		counter++;
 		// update condition to TRUE
 		ticketService.updateCondition(id);
-		amountTicket -= ticketService.getOneById(id).getPrice();
+		//amountTicket -= ticketService.getOneById(id).getPrice();
 		if (counter % 3 == 0) {
 			// i++;
-
 			couponController.account();
 			model.addAttribute("info", "Cupón activado por compra de 3 tickets.");
 		} else {
@@ -305,8 +304,10 @@ public class TicketController {
 	public void calculareAmountTickets(Model model) {
 		amountTicket = 0;
 		try {
-			for (long i = 1; i <= ticketService.getAllReservedTickets().size(); i++) {
-				amountTicket += ticketService.getOneById(i).getPrice();
+			List<Ticket> ticketReserved=ticketService.getAllReservedTickets();
+			for (long i = 1; i <= (long) ticketService.getAllReservedTickets().size(); i++) {
+				int index=(int)i-1;
+				amountTicket += ticketReserved.get(index).getPrice();
 			}
 		} catch (Exception e) {
 			model.addAttribute("error", e.getStackTrace());
