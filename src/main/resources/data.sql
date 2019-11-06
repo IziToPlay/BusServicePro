@@ -51,6 +51,13 @@ INSERT INTO clients (name,last_name,dni,birthday,email, cell_phone) VALUES ('Jua
 INSERT INTO trips (start_date,final_date,price,bus_id,dpt_departure_id,dpt_arrival_id,employee_id) VALUES ('2019-12-30 12:38:00','2019-12-30 20:38:00', 48.00,1, 1,2,3);
 INSERT INTO trips (start_date,final_date,price,bus_id,dpt_departure_id,dpt_arrival_id,employee_id) VALUES ('2019-12-10 07:00:00','2019-12-11 13:38:00', 100.00,2, 1,3,3);
 INSERT INTO trips (start_date,final_date,price,bus_id,dpt_departure_id,dpt_arrival_id,employee_id) VALUES ('2019-10-26 12:38:00','2019-10-28 06:38:00', 50.00,3, 2,1,3);
+INSERT INTO trips (start_date,final_date,price,bus_id,dpt_departure_id,dpt_arrival_id,employee_id) VALUES ('2019-12-30 12:38:00','2019-12-30 20:38:00', 48.00,1, 1,2,3);
+INSERT INTO trips (start_date,final_date,price,bus_id,dpt_departure_id,dpt_arrival_id,employee_id) VALUES ('2019-12-10 07:00:00','2019-12-11 13:38:00', 100.00,2, 1,3,3);
+INSERT INTO trips (start_date,final_date,price,bus_id,dpt_departure_id,dpt_arrival_id,employee_id) VALUES ('2019-10-26 12:38:00','2019-10-28 06:38:00', 50.00,3, 2,1,3);
+INSERT INTO trips (start_date,final_date,price,bus_id,dpt_departure_id,dpt_arrival_id,employee_id) VALUES ('2019-12-30 12:38:00','2019-12-30 20:38:00', 48.00,1, 1,2,3);
+INSERT INTO trips (start_date,final_date,price,bus_id,dpt_departure_id,dpt_arrival_id,employee_id) VALUES ('2019-12-10 07:00:00','2019-12-11 13:38:00', 100.00,2, 1,3,3);
+INSERT INTO trips (start_date,final_date,price,bus_id,dpt_departure_id,dpt_arrival_id,employee_id) VALUES ('2019-10-26 12:38:00','2019-10-28 06:38:00', 50.00,3, 2,1,3);
+
 
 INSERT INTO coupons(description, discount, expire_date, release_date,special_code, trip_id,status,client_id,gif_status) VALUES ('Cupon Navideño', 50, '2019-12-1','2019-12-31', '123456', 1,false,1,false);
 INSERT INTO coupons(description, discount, expire_date, release_date,special_code, trip_id,status,client_id,gif_status) VALUES ('Cupon Navideño', 50, '2019-12-1','2019-12-31',  'ABC123', 2,false,2,false);

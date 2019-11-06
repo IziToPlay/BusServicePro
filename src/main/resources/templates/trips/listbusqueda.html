@@ -1,0 +1,85 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head"></th:block>
+<body>
+
+	<th:block th:include="fragments/navbar"></th:block>
+	<div class="container">
+
+		<div class="card" style="max-width: 100%;">
+
+			<div class="card-header">Mantenimiento Viajes</div>
+			<div class="card-body">
+
+				<form th:action="@{/trips/searchTrip}" method="get">
+
+					<div class="form-row align-items-center">
+
+						<div class="col-auto">
+							<Label class="sr-only" for="inputDptDeparture">Datos a completar</Label> 
+								<input id="inputDptDeparture" type="text" class="form-control form-control-lg" 
+								name="dptDeparture"
+								placeholder="Origen a buscar">
+						</div>
+						
+						<div class="col-auto">
+							<Label class="sr-only" for="inputDptArrival">Datos a completar</Label> 
+								<input id="inputDptArrival" type="text" class="form-control form-control-lg" 
+								name="dptArrival"
+								placeholder="Destino a buscar">
+						</div>
+						
+						<div class="col-auto">
+							<Label class="sr-only" for="inputStartDate">Datos a completar</Label> 
+								<input id="inputStartDate" type="text" class="form-control form-control-lg" 
+								name="startDate"
+								placeholder="Fecha de ida">
+						</div>
+						
+						<div class="col-auto">
+							<button type="submit" class="btn btn-primary">Buscar</button>
+
+						</div>
+					</div>
+				</form>
+
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Origen</th>
+							<th>Destino</th>
+							<th>Fecha partida</th>
+							<th>Fecha llegada</th>
+							<th>Asientos</th>
+							<th>Bus</th>
+							<th>Precio</th>
+							<th>Seleccionar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="trip : ${trips}">
+
+							<td th:text="${trip.id}">cruzSolar</td>
+							<td th:text="${trip.dptDeparture.name}">cruzSolar</td>
+							<td th:text="${trip.dptArrival.name}">cruzSolar</td>
+							<td th:text="${trip.startDate}">cruzSolar</td>
+							<td th:text="${trip.finalDate}">cruzSolar</td>
+							<td th:text="${trip.bus.quantitySeat}">cruzSolar</td>
+							<td th:text="${trip.bus.id}">cruzSolar</td>
+							<td th:text="${trip.price}">cruzSolar</td>
+							<td><a th:href="@{'/tickets/new/' + ${trip.id}}"
+								class="btn btn-primary">Viaje</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+	
+	
+	<th:block th:include="fragments/scripts"></th:block>
+
+</body>
+</html>

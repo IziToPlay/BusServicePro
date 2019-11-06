@@ -38,6 +38,7 @@
 						
 						<div class="col-auto">
 							<button type="submit" class="btn btn-primary">Buscar</button>
+
 						</div>
 					</div>
 				</form>
@@ -57,7 +58,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="trip : ${trips}">
+						<tr th:each="trip : ${tripsList}">
 
 							<td th:text="${trip.id}">cruzSolar</td>
 							<td th:text="${trip.dptDeparture.name}">cruzSolar</td>
@@ -76,6 +77,12 @@
 		</div>
 
 	</div>
+	
+	<br> &nbsp;&nbsp;&nbsp; <br>
+			
+			<div class="container">
+				<th:block th:include="fragments/pagination"></th:block>			
+			</div>	
 	<th:block th:include="fragments/scripts"></th:block>
 
 </body>
