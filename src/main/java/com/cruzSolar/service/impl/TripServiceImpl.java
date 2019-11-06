@@ -1,8 +1,11 @@
 package com.cruzSolar.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.cruzSolar.model.entity.Trip;
@@ -40,7 +43,9 @@ public class TripServiceImpl implements TripService{
 
 	@Override
 	public List<Trip> getAll() throws Exception {
-		return tripRepository.findAll();
+		List<Trip> trips = new ArrayList<>();
+		tripRepository.findAll().iterator().forEachRemaining(trips::add);
+		return trips;
 	}
 
 	@Override
@@ -51,6 +56,12 @@ public class TripServiceImpl implements TripService{
 	@Override
 	public List<Trip> fetchTripByDpt(String dptDeparture,String dptArrival, String startDate) throws Exception {
 		return tripRepository.fetchTripByDpt(dptDeparture,dptArrival, startDate);
+	}
+	
+	
+	@Override
+	public Page<Trip> findAll(Pageable pageable) {
+		return tripRepository.findAll(pageable);
 	}
 
 
