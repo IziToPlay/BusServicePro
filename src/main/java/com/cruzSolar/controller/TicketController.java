@@ -62,9 +62,14 @@ public class TicketController {
 
 	@GetMapping("/list")
 	public String showAllTickets(Model model) throws Exception {
+		try {
+		
 		model.addAttribute("tickets", ticketService.getAllReservedTickets());
 		calculareAmountTickets(model);
 		model.addAttribute("amounTicket", amountTicket);
+	} catch(Exception e) {
+		model.addAttribute("error",e.getMessage());
+	}
 		return "tickets/list";
 	}
 
@@ -76,6 +81,8 @@ public class TicketController {
 
 	@GetMapping("/new/{id}")
 	public String newTicketForm(@PathVariable("id") long id, Model model) throws Exception {
+		
+		try {
 		model.addAttribute("ticket", new Ticket());
 		client = new Client();
 		List<Client> clients = clientService.getAll();
@@ -83,6 +90,9 @@ public class TicketController {
 		trip = tripService.getOneById(id);
 		List<Seat> seats = seatService.findAllSeatsAvailables(id);
 		model.addAttribute("seats", seats);
+		}catch(Exception e) {
+			model.addAttribute("info",e.getMessage());
+		}
 		return "tickets/new";
 	}
 
@@ -126,23 +136,34 @@ public class TicketController {
 
 	@GetMapping("/searchClient")
 	public String searchClient(@RequestParam("dni") String dni, Model model) throws Exception {
+		try {
+		
 		model.addAttribute("ticket", new Ticket());
 		List<Client> clients = clientController.searchClient(dni, model);
 		model.addAttribute("clients", clients);
 		List<Seat> seats = seatService.findAllSeatsAvailables(trip.getId());
 		model.addAttribute("seats", seats);
+		}
+		catch(Exception e) {
+			model.addAttribute("error",e.getMessage());
+		}
 		return "tickets/new";
 	}
 
 	@GetMapping("/connect/{id}")
 	public String connectClient(@PathVariable("id") long id, Model model) throws Exception {
-		model.addAttribute("ticket", new Ticket());
+		
+		try {
+		model.addAttribute("ticket", new Ticket());	
 		client = clientService.getOneById(id);
 		// List<Client> clients = clientService.getAll();
 		model.addAttribute("clients", client);
 		List<Seat> seats = seatService.findAllSeatsAvailables(trip.getId());
 		model.addAttribute("seats", seats);
 		model.addAttribute("success", "Cliente seleccionado correctamente");
+		}	catch (Exception e) {
+			
+		}
 
 		return "tickets/new";
 	}
