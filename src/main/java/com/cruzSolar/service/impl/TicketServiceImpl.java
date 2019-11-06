@@ -30,7 +30,7 @@ public class TicketServiceImpl implements TicketService{
 		Ticket currentTicket=getOneById(id);
 		
 		//currentTicket.setClient(entity.getClient());
-		currentTicket.setEmissionDate(entity.getEmissionDate());
+		//currentTicket.setEmissionDate(entity.getEmissionDate());
 		//currentTicket.setEmployee(entity.getEmployee());
 		currentTicket.setSeat(entity.getSeat());
 		//currentTicket.setTrip(entity.getTrip());
