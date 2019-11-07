@@ -11,7 +11,7 @@
 		
 
 			<div class="container">
-					<div class="card-header text-white bg-primary">RESERVAR TICKET</div>
+					<div class="card-header text-white bg-primary">COMPRAR TICKET</div>
 					<div class="card-body">
 						<form th:action="@{/tickets/searchClient}" method="get">
 						
@@ -59,7 +59,7 @@
 							<td th:text="${client.birthday}">cruzSolar</td>
 							<td th:text="${client.email}">cruzSolar</td>
 							
-							<td><a th:href="@{'/tickets/connect/' + ${client.id}}"
+							<td><a th:href="@{'/tickets/connectClient/' + ${client.id}}"
 								class="btn btn-primary">Cliente</a></td>
 							
 						</tr>
@@ -67,7 +67,7 @@
 				</table>
 				</div>
 				
-						<form th:object="${ticket}" th:action="@{/tickets/save}"
+						<form th:object="${ticket}" th:action="@{/tickets/saveInstantTicket}"
 					th:method="post">
 					<div class="form-group">
 						<input type="hidden" class="form-control" th:field="*{id}" />
@@ -88,7 +88,7 @@
 					</div>	
 						
 					<a th:href="@{/trips/list}" class="btn btn-primary">Regresar</a>
-					<button type="submit" class="btn btn-success">Reservar</button>
+					<button type="submit" class="btn btn-success">Comprar</button>
 				</form>
 
 	

@@ -14,9 +14,9 @@
 					th:method="post">
 					
 					<div class="form-group">
-						<label for="fechaEmission">Fecha de emision</label> <input type="text"
+						<label for="fechaEmission">Fecha de emision</label> <input type="date"
 							class="form-control" id="fecha" aria-describedby="nameClient"
-							th:field="*{emissionDate}" disabled="disabled"/>
+							th:field="*{emissionDate}" />
 					</div>
 					
 					<div class="form-group">
@@ -44,8 +44,15 @@
 							th:field="*{trip.dptArrival.name}" disabled="disabled" />
 					</div>
 					
+					
+					<div class="form-group">
+						<label for="nameClient">Asiento</label> <input type="text"
+							class="form-control" id="nameClient" aria-describedby="nameClient"
+							th:field="*{seat.number}" disabled="disabled" />
+					</div>
+					
 						<div class="form-group">
-						<label for="seat">Asientos</label> <select id="seat"
+						<label for="seat">Asientos Disponibles</label> <select id="seat"
 							class="form-control" th:field="*{seat}" multiple="multiple">
 							<option th:each="seat : ${seats}"
 								th:text="${seat.number}" th:value="${seat.id}"></option>

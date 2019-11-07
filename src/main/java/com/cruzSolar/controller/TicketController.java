@@ -96,6 +96,22 @@ public class TicketController {
 		return "tickets/new";
 	}
 
+	@GetMapping("/newToBuy/{id}")
+	public String newInstantTicketForm(@PathVariable("id") long id, Model model) throws Exception {
+		try {
+		model.addAttribute("ticket", new Ticket());
+		client = new Client();
+		List<Client> clients = clientService.getAll();
+		model.addAttribute("clients", clients);
+		trip = tripService.getOneById(id);
+		List<Seat> seats = seatService.findAllSeatsAvailables(id);
+		model.addAttribute("seats", seats);
+		}catch(Exception e) {
+			model.addAttribute("info",e.getMessage());
+		}
+		return "tickets/newToBuy";
+	}
+	
 	@GetMapping("/searchBoughtTicket")
 	public String searchBoughtTicket(@RequestParam("id") String id, Model model) throws Exception {
 		if (!id.isEmpty()) {
@@ -168,6 +184,23 @@ public class TicketController {
 		return "tickets/new";
 	}
 
+	@GetMapping("/connectClient/{id}")
+	public String connectClientToBuy(@PathVariable("id") long id, Model model) throws Exception {
+		
+		try {
+		model.addAttribute("ticket", new Ticket());	
+		client = clientService.getOneById(id);
+		// List<Client> clients = clientService.getAll();
+		model.addAttribute("clients", client);
+		List<Seat> seats = seatService.findAllSeatsAvailables(trip.getId());
+		model.addAttribute("seats", seats);
+		model.addAttribute("success", "Cliente seleccionado correctamente");
+		}	catch (Exception e) {
+			
+		}
+
+		return "tickets/newToBuy";
+	}
 	public List<Ticket> searchTickets(String emissionDate, Model model) {
 
 		try {
@@ -218,6 +251,26 @@ public class TicketController {
 			List<Client> clients = clientService.getAll();
 			model.addAttribute("clients", clients);
 			return "tickets/new";
+		}
+	}
+	
+	@PostMapping("/saveInstantTicket")
+	public String saveInstantNewTicket(Ticket ticket, Model model) throws Exception {
+
+		if (client.getId() != null) {
+			ticket.setCondition(false);
+			ticket.setPrice(trip.getPrice());
+			ticket.setTrip(trip);
+			ticket.setClient(client);
+			ticket.setCondition(false);
+			long id = ticketService.create(ticket);
+			buyInstantTicket(id, model);
+			return "redirect:/trips/list";
+		} else {
+			model.addAttribute("error", "Cliente no seleccionado");
+			List<Client> clients = clientService.getAll();
+			model.addAttribute("clients", clients);
+			return "tickets/newToBuy";
 		}
 	}
 
@@ -290,6 +343,7 @@ public class TicketController {
 
 	@GetMapping("/delete/{id}")
 	public String deleteTicket(@PathVariable("id") long id, Model model) throws Exception {
+		counter--;
 		//amountTicket -= ticketService.getOneById(id).getPrice();
 		ticketService.delete(id);
 		model.addAttribute("success", "Ticket eliminado correctamente");
@@ -310,6 +364,21 @@ public class TicketController {
 			model.addAttribute("success", "Ticket comprado correctamente");
 		}
 		return "redirect:/tickets/list";
+	}
+	
+	public String buyInstantTicket(long id, Model model) throws Exception {
+		counter++;
+		// update condition to TRUE
+		ticketService.updateCondition(id);
+		//amountTicket -= ticketService.getOneById(id).getPrice();
+		if (counter % 3 == 0) {
+			// i++;
+			couponController.account();
+			model.addAttribute("info", "Cupón activado por compra de 3 tickets.");
+		} else {
+			model.addAttribute("success", "Ticket comprado correctamente");
+		}
+		return "redirect:/trips/list";
 	}
 
 	@PostMapping("/selectTicketToDiscount/{id}")
