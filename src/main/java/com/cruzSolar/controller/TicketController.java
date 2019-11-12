@@ -56,7 +56,7 @@ public class TicketController {
 	private Ticket ticketSelect;
 	List<Ticket> ticketsBought;
 	List<Coupon> coupons;
-	private double amountTicket = 0;
+	//private double amountTicket = 0;
 	private int counter = 0;
 	// private long i=0;
 
@@ -65,8 +65,8 @@ public class TicketController {
 		try {
 		
 		model.addAttribute("tickets", ticketService.getAllReservedTickets());
-		calculareAmountTickets(model);
-		model.addAttribute("amounTicket", amountTicket);
+		
+		model.addAttribute("amountTicket", ticketService.calculateAmountTickets());
 	} catch(Exception e) {
 		model.addAttribute("error",e.getMessage());
 	}
@@ -117,9 +117,9 @@ public class TicketController {
 		if (!id.isEmpty()) {
 			if(!searchBoughtTickets(id, model).isEmpty())
 			{model.addAttribute("tickets", searchBoughtTickets(id, model));
-			model.addAttribute("ino", "Búsqueda realizada correctamente");	}	
+			model.addAttribute("info", "Busqueda realizada correctamente");	}	
 			else
-				model.addAttribute("infor", "No se han encontrado coincidencias.");
+				model.addAttribute("info", "No se han encontrado coincidencias.");
 		}
 		else 
 			model.addAttribute("info", "Debe completar el campo de búsqueda.");		
@@ -132,7 +132,7 @@ public class TicketController {
 			if (!filtroid.isEmpty()) {
 
 				long id = Long.parseLong(filtroid);
-				model.addAttribute("info", "Búsqueda realizada correctamente");
+				model.addAttribute("info", "Busqueda realizada correctamente");
 				ticketsBought = ticketService.fetchTicketById(id);
 				if (!tickets.isEmpty()) {
 					model.addAttribute("tickets", ticketsBought);
@@ -391,7 +391,7 @@ public class TicketController {
 		// no valido para el viaje seleccionado entonces saldra mensaje de error
 	}
 
-	public void calculareAmountTickets(Model model) {
+	/*public void calcularAmountTickets(Model model) {
 		amountTicket = 0;
 		try {
 			List<Ticket> ticketReserved=ticketService.getAllReservedTickets();
@@ -402,7 +402,7 @@ public class TicketController {
 		} catch (Exception e) {
 			model.addAttribute("error", e.getStackTrace());
 		}
-	}
+	}*/
 
 	public TicketService getTicketService() {
 		return ticketService;
@@ -508,13 +508,13 @@ public class TicketController {
 		this.coupons = coupons;
 	}
 
-	public double getAmountTicket() {
+	/*public double getAmountTicket() {
 		return amountTicket;
 	}
 
 	public void setAmountTicket(double amountTicket) {
 		this.amountTicket = amountTicket;
-	}
+	}*/
 
 	public int getCounter() {
 		return counter;
