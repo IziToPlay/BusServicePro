@@ -90,17 +90,17 @@ public class TicketController {
 	public String newTicketForm(@PathVariable("id") long id, Model model) throws Exception {
 		
 		try {
-		
 		model.addAttribute("ticket", new Ticket());
 		client = new Client();
 		seat = new Seat();
 		List<Client> clients = clientService.getAll();
 		model.addAttribute("clients", clients);
 		trip = tripService.getOneById(id);
-		seats = seatService.findAllSeatsAvailables(id);
-		orderseat();
-	
+		
+		seats = seatService.findAllSeatsAvailables(trip.getBus().getId());
 		model.addAttribute("seats", seats);
+		orderseat();
+		
 		}catch(Exception e) {
 			model.addAttribute("info",e.getMessage());
 		}
@@ -175,56 +175,78 @@ public class TicketController {
 	}
 
 	@GetMapping("/searchClient")
+
 	public String searchClient(@RequestParam("dni") String dni, Model model) throws Exception {
+	
 		try {
 		
 		model.addAttribute("ticket", new Ticket());
 		List<Client> clients = clientController.searchClient(dni, model);
 		model.addAttribute("clients", clients);
-		List<Seat> seats = seatService.findAllSeatsAvailables(trip.getId());
+		
+		List<Seat> seats = seatService.findAllSeatsAvailables(trip.getBus().getId());
 		model.addAttribute("seats", seats);
+		orderseat();
+		
 		}
+		
 		catch(Exception e) {
 			model.addAttribute("error",e.getMessage());
 		}
+		
 		return "tickets/new";
+		
 	}
 	
 	@GetMapping("/connect/{id}")
 	public String connectClient(@PathVariable("id") long id, Model model) throws Exception {
 		
 		try {
+
+			
 		model.addAttribute("ticket", new Ticket());	
 		client = clientService.getOneById(id);
 		// List<Client> clients = clientService.getAll();
 		model.addAttribute("clients", client);
-		List<Seat> seats = seatService.findAllSeatsAvailables(trip.getId());
+		
+		List<Seat> seats = seatService.findAllSeatsAvailables(trip.getBus().getId());
 		
 		if(seat.getId() != null) { model.addAttribute("seats", seat);}
 	
-		else {model.addAttribute("seats", seats);}
+		else {
+			model.addAttribute("seats", seats);
+		}
+		    
 		model.addAttribute("success", "Cliente seleccionado correctamente");
-		}	catch (Exception e) {
+		}
+		catch (Exception e) {
 			
 		}
 		return "tickets/new";
 	}
+	
 	@GetMapping("/connectseattoedit/{id}")
 	public String connectSeatToEdit(@PathVariable("id") long id, Model model) throws Exception {
+		
 		try 
 		{
 				List<Client> clients = clientService.getAll();
 				model.addAttribute("clients", clients);	
 				model.addAttribute("ticket", ticket);	
 				
-				seatSelected = seatService.findSeatbyBus(ticket.getTrip().getBus().getId(),id);				
-				seat = seatService.findSeatbyBus(ticket.getTrip().getBus().getId(),ticket.getSeat().getId());
+				 
+				 seatSelected = seatService.findSeatbyBus(ticket.getTrip().getBus().getId(),id);				
+				 seat = seatService.findSeatbyBus(ticket.getTrip().getBus().getId(),ticket.getSeat().getId());
 			
-			     model.addAttribute("success", "Se ha cambiado el asiento " + seat.getId() + " por el asiento asiento " + seatSelected.getId());
 			    
-			     seats = seatService.findAllSeatsAvailables(id);
+			     seats = seatService.findAllSeatsAvailables(ticket.getTrip().getBus().getId());
 			     model.addAttribute("seats", seats);
 				 orderseat();
+				 
+				 
+			     model.addAttribute("success", "Se ha cambiado el asiento " + ticket.getSeat().getId() + " por el asiento asiento " + id);
+
+				 
 		 }
 			catch (Exception e)
 			{
@@ -248,8 +270,8 @@ public class TicketController {
 				List<Client> clients = clientService.getAll();
 			    model.addAttribute("clients", clients); 
 			   }
-		        model.addAttribute("seats", seat);
-
+		       model.addAttribute("seats", seat);
+		   	   orderseat(); 
 			    //model.addAttribute("clients", clients);
 		      	model.addAttribute("success", "Se ha seleccionado correctamente el Asiento " + seat.getId());
 			}
@@ -322,10 +344,14 @@ public class TicketController {
 		client = clientService.getOneById(id);
 		// List<Client> clients = clientService.getAll();
 		model.addAttribute("clients", client);
-		List<Seat> seats = seatService.findAllSeatsAvailables(trip.getId());
-		if(seat.getId() != null) { model.addAttribute("seats", seat);}
+		List<Seat> seats = seatService.findAllSeatsAvailables(trip.getBus().getId());
+		if(seat.getId() != null) {
+			model.addAttribute("seats", seat);}
 		
-		else {model.addAttribute("seats", seats);}
+		else {
+			model.addAttribute("seats", seats);
+		    orderseat();
+		}
 		model.addAttribute("success", "Cliente seleccionado correctamente");
 		}	catch (Exception e) {
 			
@@ -384,9 +410,10 @@ public class TicketController {
 		} else {
 			model.addAttribute("error", "Cliente no seleccionado");
 			List<Client> clients = clientService.getAll();
-			List<Seat> seats = seatService.findAllSeatsAvailables(trip.getId());
+			List<Seat> seats = seatService.findAllSeatsAvailables(trip.getBus().getId());
 			model.addAttribute("clients", clients);
 			model.addAttribute("seats", seats);
+			orderseat();
 			return "tickets/new";
 		}
 	}
@@ -409,9 +436,10 @@ public class TicketController {
 		} else {
 			model.addAttribute("error", "Cliente no seleccionado");
 			List<Client> clients = clientService.getAll();
-			List<Seat> seats = seatService.findAllSeatsAvailables(trip.getId());
+			List<Seat> seats = seatService.findAllSeatsAvailables(trip.getBus().getId());
 			model.addAttribute("clients", clients);
 			model.addAttribute("seats", seats);
+			orderseat();
 			return "tickets/newToBuy";
 		}
 	}
@@ -469,9 +497,9 @@ public class TicketController {
 		model.addAttribute("ticket", ticket);
 		List<Client> clients = clientService.getAll();
 		model.addAttribute("clients", clients);
-		seats = seatService.findAllSeatsAvailables(id);
-		orderseat();
+		seats = seatService.findAllSeatsAvailables(ticket.getTrip().getBus().getId());
 		model.addAttribute("seats", seats);
+		orderseat();
 		
 		return "tickets/edit";
 	}
@@ -499,10 +527,10 @@ public class TicketController {
 		counter--;
 		//amountTicket -= ticketService.getOneById(id).getPrice();
 		Ticket ticket = ticketService.getOneById(id);
-		ticketService.delete(id);
 		Seat seat = seatService.findSeatbyBus(ticket.getTrip().getBus().getId(),ticket.getSeat().getId());
 		seat.setAvailable(true);
-		seatService.update(trip.getBus().getId(),seat);	
+		seatService.update(ticket.getTrip().getBus().getId(),seat);	
+		ticketService.delete(id);
 		model.addAttribute("success", "Ticket eliminado correctamente");
 		return "redirect:/tickets/list";
 	}
