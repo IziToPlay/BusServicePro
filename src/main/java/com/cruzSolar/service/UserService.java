@@ -1,7 +1,7 @@
 package com.cruzSolar.service;
 
-import com.cruzSolar.model.entity.User;
+import com.cruzSolar.model.entity.Account;
 
-public interface UserService extends CrudService<User, Long>{
+public interface UserService extends CrudService<Account, Long>{
 
 }

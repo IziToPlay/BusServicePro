@@ -63,5 +63,10 @@ INSERT INTO coupons(description, discount, expire_date, release_date,special_cod
 INSERT INTO coupons(description, discount, expire_date, release_date,special_code, trip_id,status,client_id,gif_status) VALUES ('Cupon Navideño', 50, '2019-12-1','2019-12-31',  'ABC123', 2,false,2,false);
 INSERT INTO coupons(description, discount, expire_date, release_date,special_code, trip_id,status,client_id,gif_status) VALUES ('Cupon Navideño', 50, '2019-12-1','2019-12-31', 'DEF456', 3,false,3,false);
 
+INSERT INTO  accounts(enabled,password,user_name, employee_id) VALUES(true,'$2a$10$wv6cqXcPVk0M040/auJlz.C9AspTmx1GwdrXrNzOVdgjF8fdUM1fK','hampcode',1);
+INSERT INTO  accounts(enabled,password,user_name, employee_id) VALUES(true,'$2a$10$rQLBuQdrJySCh2LEr2yASO71AZ3keIp3kJQqSmRQdK4Xt2IoLSdyu','usercode',2);
 
+
+INSERT INTO authorities(authority,user_id) VALUES('ROLE_ADMIN',1);
+INSERT INTO authorities(authority,user_id) VALUES('ROLE_USER',2);
 
