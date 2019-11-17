@@ -24,18 +24,18 @@ public class Seat {
 	@JoinColumn(name = "bus_id",nullable=false)
 	private Bus bus;
 	
-	@NotEmpty
+	
 	@Column(name = "floor", nullable = false)
 	private int floor;
 
-	@NotEmpty
 	@Column(name = "available", nullable = false)
 	private Boolean available;
 	
-	@NotEmpty
+	
 	@Column(name = "number", nullable = false)
 	private int number;
 
+	
 	public Long getId() {
 		return id;
 	}
@@ -75,4 +75,6 @@ public class Seat {
 	public void setAvailable(Boolean available) {
 		this.available = available;
 	}
+
+	
 }

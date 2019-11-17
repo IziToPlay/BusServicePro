@@ -67,6 +67,32 @@
 				</table>
 				</div>
 				
+				 <div class="card" style="width: 18">
+                     <div  class="card-body"  >
+                    
+                        <h5 class="card-title">Asientos</h5>
+                      
+                                       
+                     <a th:href="@{'/tickets/connectseat/' + ${seat.id}}" class="form-group" th:each="seat : ${seats}"  >
+                       
+                       <span th:if="${seat.available} != true" >                     
+                             <button id="buttonseat" class="btn btn-danger" 
+                             th:text="${seat.number}"
+                             th:value="${seat.id}" >
+                             </button>
+                        </span>                      
+                       <span th:if="${seat.available} == true">
+                        <button  id="buttonseat2" class="btn btn-success" 
+                             th:text="${seat.number}"
+                             th:value="${seat.id}" >
+                             </button>
+                        </span>       
+                    </a>                
+               
+                     </div> 
+                     </div> 
+							
+				
 						<form th:object="${ticket}" th:action="@{/tickets/save}"
 					th:method="post">
 					<div class="form-group">
@@ -78,20 +104,19 @@
 							class="form-control" id="emissionDate"  aria-describedby="emissionDate"
 							th:field="*{emissionDate}" placeholder="Ingrese fecha de emision" />
 					</div>
+				
 					
-						<div class="form-group">
-						<label for="seat">Asiento</label> <select id="seat"
-							class="form-control" th:field="*{seat}" multiple="multiple">
-							<option th:each="seat : ${seats}"
-								th:text="${seat.number}" th:value="${seat.id}"></option>
-						</select>
-					</div>	
-						
+				
 					<a th:href="@{/trips/list}" class="btn btn-primary">Regresar</a>
 					<button type="submit" class="btn btn-success">Reservar</button>
 				</form>
 
-	
+
+	             
+					
+					
+
+
 			</div>
 		</div>
 

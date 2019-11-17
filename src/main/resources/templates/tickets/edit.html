@@ -10,6 +10,31 @@
 			<div class="card-header">Actualizar Reserva</div>
 			<div class="card-body">
 
+             <div class="card" style="width: 18">
+                     <div  class="card-body"  >
+                    
+                        <h5 class="card-title">Asientos</h5>
+                                                     
+                     <a th:href="@{'/tickets/connectseattoedit/' + ${seat.id}}" class="form-group" th:each="seat : ${seats}"  >
+                   
+                       <span th:if="${seat.available} != true" >                     
+                             <button id="buttonseat" class="btn btn-danger" 
+                             th:text="${seat.number}"
+                             th:value="${seat.id}" >
+                             </button>
+                        </span>                      
+                       <span th:if="${seat.available} == true">
+                        <button  id="buttonseat2" class="btn btn-success" 
+                             th:text="${seat.number}"
+                             th:value="${seat.id}" >
+                             </button>
+                        </span>       
+                    </a>                
+               
+                     </div> 
+                     </div> 
+
+
 				<form th:object="${ticket}"  th:action="@{/tickets/update/{id}(id=${ticket.id})}" 
 					th:method="post">
 					
@@ -45,19 +70,13 @@
 					</div>
 					
 					
+					
 					<div class="form-group">
 						<label for="nameClient">Asiento</label> <input type="text"
 							class="form-control" id="nameClient" aria-describedby="nameClient"
 							th:field="*{seat.number}" disabled="disabled" />
 					</div>
 					
-						<div class="form-group">
-						<label for="seat">Asientos Disponibles</label> <select id="seat"
-							class="form-control" th:field="*{seat}" multiple="multiple">
-							<option th:each="seat : ${seats}"
-								th:text="${seat.number}" th:value="${seat.id}"></option>
-						</select>
-					</div>
 					
 					
 				
