@@ -102,7 +102,8 @@
 					<div class="form-group">
 						<label for="emissionDate">Fecha de Emision</label> <input type="date"
 							class="form-control" id="emissionDate"  aria-describedby="emissionDate"
-							th:field="*{emissionDate}" placeholder="Ingrese fecha de emision" />
+							th:field="*{emissionDate}" placeholder="Ingrese fecha de emision" min="2019-11-19" max="-30d"
+							value="2019-11-19"/>
 					</div>
 				
 					
