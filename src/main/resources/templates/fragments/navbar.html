@@ -32,6 +32,9 @@
       <li class="nav-item">
         <a class="nav-link" th:href="@{/coupons/list}">Cupones</a>
       </li>
+      <li class="nav-item"><a th:href="@{/logout}"
+					class="nav-link" sec:authorize="isAuthenticated()"> Sign Out</a>				
+	   </li>
     </ul>
   </div>
   <div class="alert alert-success" th:if="${success != null}"
