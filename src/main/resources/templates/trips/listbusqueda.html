@@ -55,6 +55,7 @@
 							<th>Bus</th>
 							<th>Precio</th>
 							<th>Seleccionar</th>
+							<th>Seleccionar</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -69,7 +70,9 @@
 							<td th:text="${trip.bus.id}">cruzSolar</td>
 							<td th:text="${trip.price}">cruzSolar</td>
 							<td><a th:href="@{'/tickets/new/' + ${trip.id}}"
-								class="btn btn-primary">Viaje</a></td>
+								class="btn btn-warning">Para Reserva</a></td>
+							<td><a th:href="@{'/tickets/newToBuy/' + ${trip.id}}"
+								class="btn btn-info">Para Compra</a></td>
 						</tr>
 					</tbody>
 				</table>
