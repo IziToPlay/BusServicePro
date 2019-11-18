@@ -38,11 +38,20 @@
 				<form th:object="${ticket}"  th:action="@{/tickets/update/{id}(id=${ticket.id})}" 
 					th:method="post">
 					
+						
 					<div class="form-group">
-						<label for="fechaEmission">Fecha de emision</label> <input type="date"
+						<label for="nameClient">Asiento</label> <input type="text"
+							class="form-control" id="nameClient" aria-describedby="nameClient"
+							th:field="*{seat.number}" disabled="disabled" />
+					</div>
+					
+					<div class="form-group">
+						<label for="fechaEmission">Fecha de emision</label> <input type="text"
 							class="form-control" id="fecha" aria-describedby="nameClient"
-							th:field="*{emissionDate}" min="2019-11-19" max="-30d"value="2019-11-19"
-							 />
+							th:field="*{emissionDate}" 
+							disabled = "disabled" />
+							
+							<!--  min="2019-11-19" max="-30d"value="2019-11-19"-->
 					</div>
 					
 					<div class="form-group">
@@ -71,12 +80,7 @@
 					</div>
 					
 					
-					
-					<div class="form-group">
-						<label for="nameClient">Asiento</label> <input type="text"
-							class="form-control" id="nameClient" aria-describedby="nameClient"
-							th:field="*{seat.number}" disabled="disabled" />
-					</div>
+				
 					
 					
 					

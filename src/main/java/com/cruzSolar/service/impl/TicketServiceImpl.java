@@ -1,5 +1,9 @@
 package com.cruzSolar.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +38,11 @@ public class TicketServiceImpl implements TicketService {
 		Ticket currentTicket = getOneById(id);
 
 		// currentTicket.setClient(entity.getClient());
-		currentTicket.setEmissionDate(entity.getEmissionDate());
-		// currentTicket.setEmployee(entity.getEmployee());
+		   Date date = Calendar.getInstance().getTime();  
+           DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
+           String strDate = dateFormat.format(date);  
+		 //currentTicket.setEmissionDate(entity.getEmissionDate());
+		 //currentTicket.setEmployee(entity.getEmployee());
 		currentTicket.setSeat(entity.getSeat());
 		// currentTicket.setTrip(entity.getTrip());
 		ticketRepository.save(currentTicket);

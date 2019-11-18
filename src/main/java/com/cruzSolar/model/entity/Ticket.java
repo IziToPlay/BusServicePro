@@ -1,7 +1,5 @@
 package com.cruzSolar.model.entity;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +23,7 @@ public class Ticket {
 	@Column(name = "emission_date", nullable = false)
 	private String emissionDate;
 
+	
 	@ManyToOne
 	@JoinColumn(name = "client_id",nullable=false)
 	private Client client;

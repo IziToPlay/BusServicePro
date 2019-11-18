@@ -98,15 +98,21 @@
 					<div class="form-group">
 						<input type="hidden" class="form-control" th:field="*{id}" />
 					</div>
-					
+					<!--
 					<div class="form-group">
-						<label for="emissionDate">Fecha de Emision</label> <input type="date"
-							class="form-control" id="emissionDate"  aria-describedby="emissionDate"
-							th:field="*{emissionDate}" placeholder="Ingrese fecha de emision" min="2019-11-19" max="-30d"
-							value="2019-11-19"/>
+						<label for="emissionDate">Fecha de Emision</label> 
+						<input type="Date"
+							class="form-control validate" id="emissionDate"  aria-describedby="emissionDate"
+							th:field="*{emissionDate}"   min="#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')" max="-30d"
+							value="2019-11-18"/>
+							-->
+					<div class="form-group">
+						<label for="emissionDate">Fecha de Emision : </label> 
+						<b th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></b>						
 					</div>
-				
 					
+					
+		
 				
 					<a th:href="@{/trips/list}" class="btn btn-primary">Regresar</a>
 					<button type="submit" class="btn btn-success">Reservar</button>
