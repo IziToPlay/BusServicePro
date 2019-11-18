@@ -72,6 +72,8 @@
                     
                         <h5 class="card-title">Asientos</h5>
                       
+                      
+                      
                                        
                      <a th:href="@{'/tickets/connectseattobuy/' + ${seat.id}}" class="form-group" th:each="seat : ${seats}"  >
                        
@@ -90,14 +92,16 @@
                     </a>                
                
                      </div> 
+                     
+                
                      </div> 
-				
+				 
 						<form th:object="${ticket}" th:action="@{/tickets/saveInstantTicket}"
 					th:method="post">
 					<div class="form-group">
 						<input type="hidden" class="form-control" th:field="*{id}" />
 					</div>
-					
+					<!--  
 					<div class="form-group">
 						<label for="emissionDate">Fecha de Emision</label> <input type="date"
 							class="form-control" id="emissionDate"  aria-describedby="emissionDate"
@@ -105,12 +109,20 @@
 							/>
 					</div>
 					
-				
+					
+					 -->
+					 
+					 
+					 <div class="form-group">
+						<label for="emissionDate">Fecha de Emision : </label> 
+						<b th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></b>						
+					</div>
+					
+							
 					<a th:href="@{/trips/list}" class="btn btn-primary">Regresar</a>
 					<button type="submit" class="btn btn-success">Comprar</button>
 				</form>
-
-	
+				
 			</div>
 		</div>
 

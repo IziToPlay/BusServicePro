@@ -1,6 +1,7 @@
 package com.cruzSolar.controller;
 
 
+
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
@@ -383,9 +384,10 @@ public class TicketController {
 				tickets = ticketService.fetchTicketByFechaEmission(emissionDate);
 
 				if (!tickets.isEmpty()) {
+					model.addAttribute("info", "Busqueda realizada correctamente");
 					model.addAttribute("tickets", tickets);
 				} else {
-					model.addAttribute("info", "No existen coincidencias");
+					model.addAttribute("info", "No existen coincidencias  ");
 					model.addAttribute("tickets", ticketService.getAllReservedTickets());
 				}
 			} else {
@@ -401,6 +403,10 @@ public class TicketController {
 	public String searchTicket(@RequestParam("emissionDate") String emissionDate, Model model) throws Exception {
 
 		model.addAttribute("ticket", new Ticket());
+		
+		//SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");  
+		//String filtro = dateFormat.format(hola);  
+		
 		List<Ticket> tickets = searchTickets(emissionDate, model);
 		model.addAttribute("tickets", tickets);
 
@@ -411,7 +417,7 @@ public class TicketController {
 	}
 	public String getFechaActual() {
 	    Date ahora = new Date();
-	    SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
+	    SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
 	    return formateador.format(ahora);
 	}
 	@PostMapping("/save")
@@ -459,6 +465,8 @@ public class TicketController {
 
 		if (client.getId() != null && seat.getId() != null && seat.getAvailable() == true) {
 			ticket.setCondition(false);
+			String fecha_actual = getFechaActual();
+			ticket.setEmissionDate(fecha_actual);
 			ticket.setPrice(trip.getPrice());
 			ticket.setTrip(trip);
 			ticket.setSeat(seat);
