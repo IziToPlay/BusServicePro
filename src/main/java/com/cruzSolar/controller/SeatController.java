@@ -16,8 +16,8 @@ public class SeatController {
 	private SeatService seatService;
 	
 	@GetMapping
-    public String showAllSeats(Model model, Long bus_id) throws Exception {
-        model.addAttribute("seats", seatService.findAllSeatsAvailables(bus_id));
+    public String showAllSeats(Model model, Long bus_id,Long trip_id) throws Exception {
+        model.addAttribute("seats", seatService.findAllSeatsAvailables(bus_id,trip_id));
         return "tickets/new";
     }
 	

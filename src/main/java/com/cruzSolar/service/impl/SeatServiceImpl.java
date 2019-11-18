@@ -52,8 +52,8 @@ public class SeatServiceImpl implements SeatService {
 	}
 
 	@Override
-	public List<Seat> findAllSeatsAvailables(Long bus_id) throws Exception {
-		return seatRepository.findAllSeatsAvailables(bus_id);
+	public List<Seat> findAllSeatsAvailables(Long bus_id,Long trip_id) throws Exception {
+		return seatRepository.findAllSeatsAvailables(bus_id, trip_id);
 	}
 
 	@Override
