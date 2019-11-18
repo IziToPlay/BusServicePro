@@ -145,35 +145,37 @@ public class TicketController {
 	@GetMapping("/searchBoughtTicket")
 	public String searchBoughtTicket(@RequestParam("id") String id, Model model) throws Exception {
 		if (!id.isEmpty()) {
-			if(!searchBoughtTickets(id, model).isEmpty())
-			{model.addAttribute("tickets", searchBoughtTickets(id, model));
-			model.addAttribute("info", "Busqueda realizada correctamente");	}	
-			else
+			if(!searchBoughtTickets(id, model).isEmpty()){
+				model.addAttribute("tickets", searchBoughtTickets(id, model));
+			model.addAttribute("info", "Busqueda realizada correctamente");	
+			}else{
 				model.addAttribute("info", "No se han encontrado coincidencias.");
+			}
+		}else {
+			model.addAttribute("info", "Debe completar el campo de búsqueda.");	
+		model.addAttribute("tickets", ticketService.getAllBoughtTickets());
 		}
-		else 
-			model.addAttribute("info", "Debe completar el campo de búsqueda.");		
-			
 		return "tickets/listBoughtTickets";
+		
 	}
 
 	public List<Ticket> searchBoughtTickets(String filtroid, Model model) {
 		try {
-			if (!filtroid.isEmpty()) {
+			long id = Long.parseLong(filtroid);
+			/*if (!filtroid.isEmpty()) {
 
-				long id = Long.parseLong(filtroid);
-				model.addAttribute("info", "Busqueda realizada correctamente");
+				
+				model.addAttribute("info", "Busqueda realizada correctamente");*/
 				ticketsBought = ticketService.fetchTicketById(id);
-				if (!tickets.isEmpty()) {
+				/*if (!tickets.isEmpty()) {
 					model.addAttribute("tickets", ticketsBought);
 				} else {
 					model.addAttribute("info", "No se han encontrado coincidencias");
-					model.addAttribute("tickets", ticketService.getAllBoughtTickets());
+					
 				}
 			} else {
 				model.addAttribute("info", "Debe completar el campo de búsqueda.");
-				// model.addAttribute("coupons", couponService.getAll());
-			}
+			}*/
 		} catch (Exception e) {
 			model.addAttribute("Error Ticket:", e.getMessage());
 		}
